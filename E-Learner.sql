@@ -84,22 +84,6 @@ CREATE TABLE SWP391_Project_Test.dbo.Account (
 );
 
 
--- SWP391_Project_Test.dbo.Dimension definition
-
--- Drop table
-
--- DROP TABLE SWP391_Project_Test.dbo.Dimension;
-
-CREATE TABLE SWP391_Project_Test.dbo.Dimension (
-	dimId int IDENTITY(1,1) NOT NULL,
-	typeId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	name nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	description nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	CONSTRAINT PK_Dimension PRIMARY KEY (dimId),
-	CONSTRAINT FK_Dimension_Type FOREIGN KEY (typeId) REFERENCES SWP391_Project_Test.dbo.[Type](typeId)
-);
-
-
 -- SWP391_Project_Test.dbo.Post_File definition
 
 -- Drop table
@@ -113,24 +97,6 @@ CREATE TABLE SWP391_Project_Test.dbo.Post_File (
 	filePost varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CONSTRAINT PK__Post_Fil__3213E83FBA2FA08F PRIMARY KEY (id),
 	CONSTRAINT FK_Post_File_Type FOREIGN KEY (typeId) REFERENCES SWP391_Project_Test.dbo.[Type](typeId)
-);
-
-
--- SWP391_Project_Test.dbo.Setting definition
-
--- Drop table
-
--- DROP TABLE SWP391_Project_Test.dbo.Setting;
-
-CREATE TABLE SWP391_Project_Test.dbo.Setting (
-	settingId int NOT NULL,
-	name varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	description varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	value varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	typeId varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
-	status bit NULL,
-	CONSTRAINT PK__Setting__097EE23C415BB797 PRIMARY KEY (settingId),
-	CONSTRAINT FK_Setting_Type FOREIGN KEY (typeId) REFERENCES SWP391_Project_Test.dbo.[Type](typeId)
 );
 
 
@@ -151,20 +117,6 @@ CREATE TABLE SWP391_Project_Test.dbo.Subject (
 	description nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	CONSTRAINT PK_Subject PRIMARY KEY (subjectId),
 	CONSTRAINT FK_Subject_Catery FOREIGN KEY (cateryId) REFERENCES SWP391_Project_Test.dbo.Catery(cateryId)
-);
-
-
--- SWP391_Project_Test.dbo.SubjectDimension definition
-
--- Drop table
-
--- DROP TABLE SWP391_Project_Test.dbo.SubjectDimension;
-
-CREATE TABLE SWP391_Project_Test.dbo.SubjectDimension (
-	subjectId int NOT NULL,
-	dimId int NOT NULL,
-	CONSTRAINT FK_SubjectDimension_Dimension FOREIGN KEY (dimId) REFERENCES SWP391_Project_Test.dbo.Dimension(dimId),
-	CONSTRAINT FK_SubjectDimension_Subject FOREIGN KEY (subjectId) REFERENCES SWP391_Project_Test.dbo.Subject(subjectId)
 );
 
 
