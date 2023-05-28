@@ -17,7 +17,7 @@
                     <a class="nav-link text-dark mt-2" href="subject-list">SUBJECT</a>
                 </li>
                 <li class="nav-item me-5">
-                    <a class="nav-link text-dark mt-2" href="post-list?blogAction=get">BLOG</a>
+                    <a class="nav-link text-dark mt-2" href="#">navbar</a>
                 </li>
             </ul>
 
@@ -27,7 +27,7 @@
                 <input type="search" name="keyword" id="form1" class="form-control" placeholder="Search"/>
                 <!--<label class="form-label" for="form1">Search</label>-->
                 <button type="submit" class="btn btn-primary">Search
-                    <i class="fas fa-search"></i>
+
                 </button>
             </div>
         </form>

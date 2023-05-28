@@ -44,6 +44,8 @@ public class AccountDAO {
                             .userid(rs.getInt(1))
                             .username(rs.getString(2))
                             .password(rs.getString(3))
+                            .email(rs.getString("email"))
+                            .phone(rs.getInt("phone"))
                             .role(role)
                             .build();
                 }
@@ -362,8 +364,8 @@ public class AccountDAO {
                     Account account = new Account();
                     Role role = new Role();
 
-                    role.setRole_id(rs.getInt("RoleID"));
-                    role.setRole_name(rs.getString("Name"));
+                    role.setRole_id(rs.getInt("RoleId"));
+                    role.setRole_name(rs.getString("roleName"));
                     account.setUserid(rs.getInt("userId"));
                     account.setFullname(rs.getString("fullname"));
                     account.setPhone(rs.getInt("phone"));

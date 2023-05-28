@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import fu.swp.model.Account;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,9 +42,16 @@ public class ProfileController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
-        System.out.println("session: "+request.getSession().getAttribute("account"));
-        request.setAttribute("acc", request.getSession().getAttribute("account"));
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        AccountDAO accountDAO = new AccountDAO();
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        if (account == null) {
+            response.sendRedirect("Login");
+        } else {
+            request.setAttribute("acc", accountDAO.getInforUserById(account.getUserid()));
+            request.getRequestDispatcher(!account.getRole().getRole_name().equals("TEACHER") ? "profile.jsp" : "profileTeacher.jsp").forward(request, response);
+        }
+
     }
 
     @Override
@@ -62,14 +70,13 @@ public class ProfileController extends HttpServlet {
 //        if (request.getParameter("gender").equalsIgnoreCase("female")) {
 //            gender = false;
 //        }
-        int phone = Integer.parseInt(  request.getParameter("phone"));
+        int phone = Integer.parseInt(request.getParameter("phone"));
         String address = request.getParameter("address");
         String filename = uploadFile(request);
-        Account acc = (Account)request.getSession().getAttribute("account");
-        System.out.println("Phone: "+phone);
-        System.out.println("Name: "+fullname);
-        System.out.println("address: "+address);
-//        acc.setUserid(accountID);
+
+        Account acc = new Account();
+        acc.setUserid(accountID);
+        acc.setEmail(oldAccount.getEmail());
         acc.setFullname(fullname);
         //acc.setLastName(lastName);
         //acc.setGender(Gender.of(gender));
@@ -78,11 +85,11 @@ public class ProfileController extends HttpServlet {
         acc.setAvatar(filename);
         accountDAO.editProfile(acc);
 
-        Account accountUpdate = accountDAO.getAccount(oldAccount.getEmail(), oldAccount.getPassword());
+        Account accountUpdate = accountDAO.getInforUserById(oldAccount.getUserid());
         request.getSession().setAttribute("account", accountUpdate);
         //System.out.println("adasdasdas:"+accountUpdate);
-         response.sendRedirect("/profile");
-         
+        response.sendRedirect("profile");
+
 //       request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 
@@ -133,6 +140,7 @@ public class ProfileController extends HttpServlet {
 
         return null;
     }
+
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -13,9 +13,6 @@
         <%@include file="components/navBarComponent.jsp" %>
         <div class="container">
 
-
-
-
             <div id="layoutSidenav">
                 <div id="layoutSidenav_content">
                     <div class="container px-4 px-lg-5" style="margin-top: 91px">
@@ -29,7 +26,21 @@
                                     Description: <b class="mb-2">${SBSI.description}</b><br>
                                     Tag Line: <b class="mb-2">${SBSI.getTagLine()}</b><br>
                                     Price: <b class="mb-4">3200-10000</b><br>
-                                    <button type="submit" class="btn btn-primary mt-4 me-3" data-toggle="modal" data-target="#SBSI${SBSI.getSubjectId()}">Register ${SBSI.subjectName}</button> 
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <span>Teacher: <a href="ViewTeacher?userId=7">Teacher</a></span>
+                                        </div>
+                                    </div>
+
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Select Your Class</option>
+                                        <option value="1">Subject_su_2023_123</option>
+                                        <option value="2">Subject_su_2023_235</option>
+                                        <option value="3">Subject_su_2023_345</option>
+                                    </select>
+
+                                    <button type="submit" class="btn btn-success mt-4 me-3" data-toggle="modal" data-target="#SBSI${SBSI.getSubjectId()}">Register ${SBSI.subjectName}</button> 
                                     <!--<strong class="text-success">REGISTERED</strong><br>-->
                                     <c:if test="${requestScope.checkRegis != 0}">
                                         <a class="btn btn-primary mt-4 me-3" href="lesson-quiz?subId=${SBSI.getSubjectId()}&action=get">List Lesson</a> 
@@ -53,6 +64,7 @@
                                                             <div class="mt-3" id="update_price">
                                                                 <p>SalePrice - Price : ${SBSI.getSalePrice()} - ${SBSI.getPrice()}</p>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -93,16 +105,17 @@
             </div>
         </div> 
     </body>
+    <jsp:include page="components/footer.jsp"></jsp:include>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-         function PricePackageAsync(priceId) {
-                 axios.get('update-price-async', {
-                 params: {
-                    priceId: priceId
-                 }
+                                                                    function PricePackageAsync(priceId) {
+                                                                        axios.get('update-price-async', {
+                                                                            params: {
+                                                                                priceId: priceId
+                                                                            }
                                                                         }).then((response) => {
                                                                             document.getElementById("update_price").innerHTML = response.data;
                                                                         })
