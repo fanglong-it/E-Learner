@@ -17,10 +17,7 @@ import java.util.logging.Logger;
 import fu.swp.model.Slider;
 import fu.swp.model.Subject;
 
-/**
- *
- * @author ADMIN
- */
+
 public class SliderDAO{
 
     Connection con = null;

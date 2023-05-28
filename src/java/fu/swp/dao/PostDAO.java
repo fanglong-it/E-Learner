@@ -19,10 +19,6 @@ import java.util.logging.Logger;
 import fu.swp.model.Post;
 import fu.swp.model.Subject;
 
-/**
- *
- * @author ADMIN
- */
 public class PostDAO {
 
     Connection con = null;

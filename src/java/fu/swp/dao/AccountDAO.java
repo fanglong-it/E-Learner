@@ -15,10 +15,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import fu.swp.model.Role;
 
-/**
- *
- * @author thuong
- */
+
 public class AccountDAO {
 
     Connection con = null; // ket noi vs sql
@@ -642,7 +639,7 @@ public class AccountDAO {
             con = DBContext.makeConnection();
             if (con != null) {
                 String sql = "with t as (select ROW_NUMBER() over (order by A.userId asc) as r,\n"
-                        + "       A.* from Account AS A )\n"
+                        + "       A.* from Account AS A WHERE A.roleId)\n"
                         + "           select * from t where r between ?*?-(?-1) and ?*?";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, page);

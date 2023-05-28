@@ -15,10 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import fu.swp.model.Category;
 
-/**
- *
- * @author 84969
- */
+
 public class CategoryDAO extends DBContext implements Serializable {
 
     Connection con = null;

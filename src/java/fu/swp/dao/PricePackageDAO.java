@@ -13,10 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import fu.swp.model.PricePackage;
 
-/**
- *
- * @author yentt
- */
+
 public class PricePackageDAO extends DBContext implements Serializable {
 
     Connection con = null;

@@ -17,10 +17,7 @@ import fu.swp.model.Subject;
 import fu.swp.model.SubjectRegistration;
 import fu.swp.model.UserRegister;
 
-/**
- *
- * @author Dell
- */
+
 public class SubjectRegistrationDAO extends DBContext {
 
     Connection con = null; // ket noi vs sql

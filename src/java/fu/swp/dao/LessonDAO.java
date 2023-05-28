@@ -15,10 +15,7 @@ import fu.swp.model.Lesson;
 import fu.swp.model.Post;
 import fu.swp.model.Type;
 
-/**
- *
- * @author ADMIN
- */
+
 public class LessonDAO {
 
     Connection con = null;

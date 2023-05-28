@@ -18,10 +18,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import fu.swp.model.Role;
 
-/**
- *
- * @author Fangl
- */
+
 public class RoleDAO extends DBContext implements Serializable {
 
     Connection con = null;

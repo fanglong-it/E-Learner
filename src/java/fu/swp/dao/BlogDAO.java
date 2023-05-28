@@ -15,10 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import fu.swp.model.Blog;
 
-/**
- *
- * @author ADMIN
- */
+
 public class BlogDAO {
 
     Connection con = null;

@@ -16,10 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import fu.swp.model.RegistrationBuilder;
 
-/**
- *
- * @author yentt
- */
 public class RegistrationDAO extends DBContext implements Serializable {
 
     Connection con = null;

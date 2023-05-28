@@ -17,10 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import fu.swp.model.Subject;
 
-/**
- *
- * @author ADMIN
- */
+
 public class SubjectDAO extends DBContext implements Serializable {
 
     Connection con = null;
