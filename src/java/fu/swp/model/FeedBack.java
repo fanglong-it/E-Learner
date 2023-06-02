@@ -5,6 +5,7 @@
 package fu.swp.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,15 +15,17 @@ import lombok.Setter;
  *
  * @author DW
  */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Lesson implements Serializable{
+public class FeedBack implements Serializable{
     private int id;
-    private String lessonName;
-    private int status;
-    private String description;
-    private String videoUrl;
-    private int courseId;
+    private int star;
+    private String content;
+    private Date date;
+    private int userId;
 }
+
+

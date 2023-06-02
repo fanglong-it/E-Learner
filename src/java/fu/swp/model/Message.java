@@ -14,15 +14,17 @@ import lombok.Setter;
  *
  * @author DW
  */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Lesson implements Serializable{
+public class Message implements Serializable{
     private int id;
-    private String lessonName;
-    private int status;
-    private String description;
-    private String videoUrl;
-    private int courseId;
+    private String content;
+    private String resourcePathFile;
+    private Account account;
+    private int groupId;
 }
+
+

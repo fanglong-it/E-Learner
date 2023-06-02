@@ -4,7 +4,6 @@
  */
 package fu.swp.model;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +17,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Lesson implements Serializable{
+public class GroupChat {
     private int id;
-    private String lessonName;
-    private int status;
-    private String description;
-    private String videoUrl;
-    private int courseId;
+    private String groupChatName;
+    private int isPrivate;
+    private int classId;
+    private Account account;
 }
+

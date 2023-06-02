@@ -6,11 +6,9 @@
 package fu.swp.controller.user;
 
 import fu.swp.dao.AccountDAO;
-import fu.swp.base.Base;
-import fu.swp.model.SendEmail;
 import fu.swp.model.Account;
+import fu.swp.model.Role;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,19 +62,19 @@ public class Signup extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String user = request.getParameter("username");
-        String pass = request.getParameter("pass");
-        String re_pass = request.getParameter("repass");
-        String email = request.getParameter("email");
-
-        if (!pass.equals(re_pass)) {
-            response.sendRedirect("Login.jsp");
-        } else {
+        try {
             AccountDAO dao = new AccountDAO();
-            Account ac = dao.CheckAccountExit(user);
-            if (ac == null) {
-                // dc tao tk
-                // dao.singup(user, pass, email, 0, avatar, address, gender, avatar);
+            String user = request.getParameter("username");
+            String pass = request.getParameter("pass");
+            String re_pass = request.getParameter("repass");
+            String email = request.getParameter("email");
+            if (!pass.equals(re_pass)) {
+                response.sendRedirect("Login.jsp");
+            } else {
+                Account ac = null;
+                if (ac == null) {
+                    // dc tao tk
+                    // dao.singup(user, pass, email, 0, avatar, address, gender, avatar);
 //                String subject = "Verify your account";
 //                String message = "String message = \"<!DOCTYPE html>\\n\"\n"
 //                        + "                    + \"<html lang=\\\"en\\\">\\n\"\n"
@@ -100,14 +98,19 @@ public class Signup extends HttpServlet {
 //                SendEmail.sendMail(email, subject, message, Base.USERNAME_EMAIL, Base.PASSWORD_EMAIL);
 //                request.setAttribute("success", "Verification link has been sent to your email");
 //                System.out.println("user: " + user);
-                new AccountDAO().singup(user, pass, email);
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            } else {
-                // day ve login
-                response.sendRedirect("Signup.jsp");
+                    new AccountDAO().saveAccount(new Account(0, user, pass, 1, user, "", "", "", "", new Role(1, "USER")));
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                } else {
+                    // day ve login
+                    response.sendRedirect("Signup.jsp");
 
+                }
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     @Override

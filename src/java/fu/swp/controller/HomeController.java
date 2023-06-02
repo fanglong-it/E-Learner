@@ -5,29 +5,21 @@ package fu.swp.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import fu.swp.dao.LessonDAO;
-import fu.swp.dao.PostDAO;
-import fu.swp.dao.SliderDAO;
-import fu.swp.dao.SubjectDAO;
+import fu.swp.dao.CourseDAO;
+import fu.swp.model.Course;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Calendar;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import fu.swp.model.Lesson;
-import fu.swp.model.Post;
-import fu.swp.model.Slider;
-import fu.swp.model.Subject;
+
 import javax.servlet.annotation.WebServlet;
 
 /**
  *
  * @author ADMIN
  */
-
 @WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
 public class HomeController extends HttpServlet {
 
@@ -58,24 +50,15 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        List<Subject> listSubjects = new SubjectDAO().getAllSubjects();
-        List<Slider> listSliders = new SliderDAO().getAllSlidersShow();
-        List<Post> list3FirstPosts = new PostDAO().getList3FirstPosts();
-        int minSliderId = new SliderDAO().getMinSliderId();
-        int totalSliderShow = new SliderDAO().getTotalSliderShow();
-        List<Lesson> listLessons = new LessonDAO().getAllLessons();
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        
-        request.getSession().setAttribute("listLessons", listLessons);
-        request.setAttribute("totalSliderShow", totalSliderShow);
-        request.setAttribute("listSubjects", listSubjects);
-        request.getSession().setAttribute("listSlider", listSliders);
-        request.getSession().setAttribute("minSliderId", minSliderId);
-        request.getSession().setAttribute("currentYear", year);
-        request.setAttribute("list3FirstPosts", list3FirstPosts);
+        try {
+            CourseDAO courseDAO = new CourseDAO();
+            List<Course> listCourse = courseDAO.getAllCourses();
+            request.setAttribute("listCourse", listCourse);
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     /**

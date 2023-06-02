@@ -6,22 +6,22 @@ package fu.swp.model;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  *
- * @author yentt
+ * @author DW
  */
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-
-public class Type implements Serializable {
-    private String typeId;
-    private String typeName;
+public class Resource implements Serializable{
+    private int id;
+    private String resourceName;
+    private String description;
+    private String resourcePath;
+    private Lesson lesson;
 }

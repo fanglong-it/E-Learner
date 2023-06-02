@@ -5,7 +5,9 @@
 package fu.swp.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,15 +16,17 @@ import lombok.Setter;
  *
  * @author DW
  */
+
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Lesson implements Serializable{
+public class Course implements Serializable{
     private int id;
-    private String lessonName;
+    private String courseName;
     private int status;
+    private String image;
     private String description;
-    private String videoUrl;
-    private int courseId;
+    private Date createDate;
 }
