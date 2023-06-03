@@ -10,7 +10,7 @@
             ApplicationServletContext
         </listener-class>
     </listener>
-<!--    <welcome-file-list>
-        <welcome-file>HomeController</welcome-file>
-    </welcome-file-list>-->
+   <welcome-file-list>
+        <welcome-file>/HomeController</welcome-file>
+    </welcome-file-list>
 </web-app>

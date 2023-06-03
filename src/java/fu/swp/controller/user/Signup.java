@@ -5,9 +5,11 @@
  */
 package fu.swp.controller.user;
 
+import fu.swp.base.Base;
 import fu.swp.dao.AccountDAO;
 import fu.swp.model.Account;
 import fu.swp.model.Role;
+import fu.swp.utils.MailSender;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Signup", urlPatterns = {"/Signup"})
 public class Signup extends HttpServlet {
+
+    private static final String LOGIN_PAGE = "Login.jsp";
+    private static final String REGIS_PAGE = "Signup.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -62,53 +67,56 @@ public class Signup extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//            String user = request.getParameter("username");
+        String url = LOGIN_PAGE;
+        String email = request.getParameter("email");
+        String pass = request.getParameter("pass");
+        String re_pass = request.getParameter("repass");
         try {
             AccountDAO dao = new AccountDAO();
-            String user = request.getParameter("username");
-            String pass = request.getParameter("pass");
-            String re_pass = request.getParameter("repass");
-            String email = request.getParameter("email");
             if (!pass.equals(re_pass)) {
-                response.sendRedirect("Login.jsp");
+//                response.sendRedirect(url);
+                url = LOGIN_PAGE;
             } else {
                 Account ac = null;
                 if (ac == null) {
                     // dc tao tk
                     // dao.singup(user, pass, email, 0, avatar, address, gender, avatar);
-//                String subject = "Verify your account";
-//                String message = "String message = \"<!DOCTYPE html>\\n\"\n"
-//                        + "                    + \"<html lang=\\\"en\\\">\\n\"\n"
-//                        + "                    + \"<head></head>\\n\"\n"
-//                        + "                    + \"<body style=\\\"color:#000;\\\">\\n\"\n"
-//                        + "                    + \"    <h3>Welcome to join E-learning</h3>\\n\"\n"
-//                        + "                    + \"    <p>Please click here to verify your account</p>\\n\"\n"
-//                        + "                    + \"    \\n\"\n"
-//                        + "                    + \"    <form id=\\\"myForm\\\" method=\\\"POST\\\" action=\" + Base.LINK_VERIFY + \">\\n\"\n"
-//                        + "                    + \"        <input type=\\\"hidden\\\" value=\" + email + \" id=\\\"email\\\" name=\\\"email\\\">\\n\"\n"
-//                        + "                    + \"        <input type=\\\"hidden\\\" value=\" + pass + \" id=\\\"password\\\" name=\\\"password\\\">\\n\"\n"
-//                        + "                    + \"        <input type=\\\"submit\\\" value=\\\"Verify\\\" \\n\"\n"
-//                        + "                    + \"            style=\\\"padding: 10px 15px;color: #fff;background-color: rgb(0, 149, 255);border-radius: 10px;border:none\\\"\\n\"\n"
-//                        + "                    + \"        >\\n\"\n"
-//                        + "                    + \"    </form>\\n\"\n"
-//                        + "                    + \"\\n\"\n"
-//                        + "                    + \"    <h4>Thank you very much</h4>\\n\"\n"
-//                        + "                    + \"</body>\\n\"\n"
-//                        + "                    + \"</html>\";";
-//
-//                SendEmail.sendMail(email, subject, message, Base.USERNAME_EMAIL, Base.PASSWORD_EMAIL);
-//                request.setAttribute("success", "Verification link has been sent to your email");
-//                System.out.println("user: " + user);
-                    new AccountDAO().saveAccount(new Account(0, user, pass, 1, user, "", "", "", "", new Role(1, "USER")));
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    String subject = "Verify your account form E-Learner";
+                        String message = "<!DOCTYPE html>\n"
+                                + "            <html lang=\"en\">\n"
+                                + "            <head>\n"
+                                + "            </head>\n"
+                                + "            <body style=\"color:#000;\">\n"
+                                + "                <h3>Welcome to join E-learning</h3>\n"
+                                + "                <p>Please click here to verify your account</p>\n"
+                                + "                \n"
+                                + "                <form id=\"myForm\" method=\"POST\" action=\"\" + Base.LINK_VERIFY \">\n"
+                                + "                    <input type=\"hidden\" value=\"\" + email \" id=\"email\" name=\"email\">\n"
+                                + "                    <input type=\"hidden\" value=\"\" + pass \" id=\"password\" name=\"password\">\n"
+                                + "                    <input type=\"submit\" value=\"Verify\" \n"
+                                + "                        style=\"padding: 10px 15px;color: #fff;background-color: rgb(0, 149, 255);border-radius: 10px;border:none\"\n"
+                                + "                    >\n"
+                                + "             </form>\n"
+                                + "              <h4>Thank you very much</h4>\n"
+                                + "            </body>\n"
+                                + "            </html>";
+                    Account account = new AccountDAO().saveAccount(new Account(0, email, pass, 0, email, "", "", "", "", new Role(3, Base.ROLE_STUDENT)));
+                    if (account != null) {
+                        MailSender.send(subject, message, email);
+                        System.out.println("Send Mail Success to " + email);
+                    }
                 } else {
                     // day ve login
-                    response.sendRedirect("Signup.jsp");
-
+//                    response.sendRedirect("Signup.jsp");
+                    url = REGIS_PAGE;
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
 
     }

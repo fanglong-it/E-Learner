@@ -9,21 +9,20 @@
 <!DOCTYPE html>
 <html lang="en">
     <jsp:include page="components/header.jsp"></jsp:include>
-    <body>
-    <jsp:include page="components/navBarComponent.jsp"></jsp:include>
+        <body>
+        <jsp:include page="components/navBarComponent.jsp"></jsp:include>
         <div class="container">
             <div class="limiter">
                 <div class="text-center" style="background-image: url('images/bg-01.jpg');">
                     <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-                        <form class="login100-form validate-form" action="Signup" method="post">
+                        <form class="" action="Signup" method="post">
 
                             <span class="login100-form-title p-b-49" >
                                 Sign Up
                             </span>
-
-                            <div class="wrap-input100 validate-input m-b-23" data-validate = "Username is reauired">
-                                <span class="label-input100">Username</span>
-                                <input class="input100" type="text" name="username" placeholder="Type your username">
+                            <div class="" data-validate = "Email is re-Quired">
+                                <span class="label-input100">Email</span>
+                                <input class="input100" type="email" name="email" placeholder="Type your email">
                                 <span class="focus-input100" data-symbol="&#xf206;"></span>
                             </div>
 
@@ -34,15 +33,10 @@
                             </div>
                             <div class="wrap-input100 validate-input" data-validate="RePassword is required">
                                 <span class="label-input100">Re - Password</span>
-                                <input class="input100" type="password" name="repass" placeholder="Type your Re-Rassword">
+                                <input class="input100" type="rePassword" name="repass" placeholder="Type your Re-Rassword">
                                 <span class="focus-input100" data-symbol="&#xf190;"></span>
                             </div>
 
-                            <div class="wrap-input100 validate-input m-b-23" data-validate = "Email is reauired">
-                                <span class="label-input100">Email</span>
-                                <input class="input100" type="email" name="email" placeholder="Type your email">
-                                <span class="focus-input100" data-symbol="&#xf206;"></span>
-                            </div>
 
 
                             <br> 
@@ -58,7 +52,7 @@
                     </div>
                 </div>
             </div>
-        
+
         </div>
 
 

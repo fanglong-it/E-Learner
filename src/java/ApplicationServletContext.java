@@ -16,10 +16,11 @@ public class ApplicationServletContext implements ServletContextListener {
 
     public void registerResourcePage() {
         //Insert .jsp or Servlet mapping here NOTE: (Without slash /)!!!!
-        roleAndRequestMapper.register("E-Learner/adminDashboard.jsp", Arrays.asList(Type.admin));
-        roleAndRequestMapper.register("normal-lession.jsp", Arrays.asList(Type.admin, Type.customer, Type.teacher, Type.student));
-        roleAndRequestMapper.register("adminTask", Arrays.asList(Type.admin));
-        roleAndRequestMapper.register("userTask", Arrays.asList(Type.customer));
+        roleAndRequestMapper.register("adminDashboard.jsp", Arrays.asList(Type.admin));
+        roleAndRequestMapper.register("profile.jsp", Arrays.asList(Type.admin, Type.teacher, Type.student, Type.customer));
+//        roleAndRequestMapper.register("normal-lession.jsp", Arrays.asList(Type.admin, Type.customer, Type.teacher, Type.student));
+//        roleAndRequestMapper.register("adminTask", Arrays.asList(Type.admin));
+//        roleAndRequestMapper.register("userTask", Arrays.asList(Type.customer));
         
     }
 

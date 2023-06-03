@@ -53,10 +53,12 @@ public class HomeController extends HttpServlet {
         try {
             CourseDAO courseDAO = new CourseDAO();
             List<Course> listCourse = courseDAO.getAllCourses();
-            request.setAttribute("listCourse", listCourse);
-            request.getRequestDispatcher("Home.jsp").forward(request, response);
+            request.setAttribute("listCourses", listCourse);
+
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
         }
 
     }
@@ -72,7 +74,8 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        doGet(request, response);
     }
 
     /**

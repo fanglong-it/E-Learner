@@ -4,12 +4,9 @@
  */
 package fu.swp.utils;
 
-/**
- *
- * @author tiendang
- */
 public class UrlHelper {
 
+   
     public static String minimizeUrl (String url) {
         String result = url;
         char[] urls = url.toCharArray();
@@ -28,7 +25,7 @@ public class UrlHelper {
     }
 
     public static String getResourceUrl (String url) {
-        String resource = url.replace("/onlinelearn", "");
+        String resource = url.replace("/E-Learner", "");
         resource = minimizeUrl(resource);
         return resource;
     }

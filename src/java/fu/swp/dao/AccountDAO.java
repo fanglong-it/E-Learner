@@ -39,7 +39,7 @@ public class AccountDAO {
                             .phone(rs.getString("phone"))
                             .fullname(rs.getString("fullname"))
                             .address(rs.getString("address"))
-                            .avatar(rs.getString("avater"))
+                            .avatar(rs.getString("avatar"))
                             .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
                             .build();
                 }
@@ -60,7 +60,7 @@ public class AccountDAO {
     }
 
     public Account getLastAccount() throws SQLException, Exception {
-        String query = "SELECT TOP(1) * From Account a order by a.id desc";
+        String query = "SELECT TOP(1) * From Account a left outer join Role r on a.roleId=r.roleId order by a.id desc";
         try {
             con = DBContext.makeConnection();
             if (con != null) {
@@ -76,7 +76,7 @@ public class AccountDAO {
                             .phone(rs.getString("phone"))
                             .fullname(rs.getString("fullname"))
                             .address(rs.getString("address"))
-                            .avatar(rs.getString("avater"))
+                            .avatar(rs.getString("avatar"))
                             .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
                             .build();
                 }
@@ -99,7 +99,7 @@ public class AccountDAO {
     public Account saveAccount(Account account) throws SQLException, Exception {
         String query = "INSERT INTO Account "
                 + " (username, password, status, email, phone, fullname, address, avatar, roleId)"
-                + " VALUES(?, ?, 0, ?, ?, ?, ?, ?, 0);";
+                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             con = DBContext.makeConnection();
             if (con != null) {
@@ -112,7 +112,7 @@ public class AccountDAO {
                 ps.setString(6, account.getFullname());
                 ps.setString(7, account.getAddress());
                 ps.setString(8, account.getAvatar());
-                ps.setInt(9, account.getId());
+                ps.setInt(9, account.getRole().getRole_id());
 
                 if (ps.executeUpdate() > 0) {
                     return getLastAccount();

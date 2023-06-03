@@ -1,16 +1,19 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package fu.swp.utils;
 
-import fu.swp.model.Account;
-import fu.swp.model.Role.Type;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
-import static fu.swp.utils.UrlHelper.minimizeUrl;
+import fu.swp.model.Role.Type;
+import fu.swp.model.Account;
 import org.reflections.Reflections;
+import static fu.swp.utils.UrlHelper.minimizeUrl;
 
 public class RoleAndRequestMapper {
 
@@ -48,7 +51,7 @@ public class RoleAndRequestMapper {
         String key = "";
         if (allowedType == null || allowedType.isEmpty()) {
             
-            //http://localhost:8080/E-Learner/about.html
+            //http://localhost:8080/onlinelearn/about.html
             
              key = url.replace("http://localhost:8084/E-Learner/", "http://localhost:8084/E-Learner/HomeController");
             
@@ -61,7 +64,7 @@ public class RoleAndRequestMapper {
         }
         
         boolean result = allowedType == null  || allowedType.equals("null")|| allowedType.isEmpty();
-        Logger.getLogger(this.getClass().getSimpleName()).info("Checking aaa: " + " key: " + key + "Url :" +url+ " :" + result);
+        Logger.getLogger(this.getClass().getSimpleName()).info("Checking: " + " key: " + key + "Url :" +url+ " :" + result);
         return result;
     }
 
@@ -69,7 +72,7 @@ public class RoleAndRequestMapper {
         if (isAllowAnyOneToAccess(url)) {
             List<Type> allowedType = currentMapping.get(minimizeUrl(url));
             if (allowedType == null || allowedType.isEmpty()) {
-                String key = url.replace("http://localhost:8084/E-Learner/home", "");
+                String key = url.replace("http://localhost:8084/E-Learner/HomeController", "");
             if (key == null || key.isEmpty()) return true;
                 Logger.getLogger(this.getClass().getSimpleName()).info("Checking: " + key);
                 if (key.indexOf("?") >= 0) {

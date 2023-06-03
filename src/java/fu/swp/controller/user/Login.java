@@ -20,6 +20,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
 
+    private static final String LOGIN_PAGE = "Login.jsp";
+    private static final String HOME_PAGE = "HomeController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -37,6 +40,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url = LOGIN_PAGE;
         try {
             Cookie[] cookies = request.getCookies();
             String username = null;
@@ -60,13 +64,15 @@ public class Login extends HttpServlet {
                     if (account.getRole().getRole_name().equalsIgnoreCase("ADMIN")) {
 //                        response.sendRedirect("adminDashboard.jsp");
                     } else {
-                        request.getRequestDispatcher("HomeController").forward(request, response);
+                        url = HOME_PAGE;
+//                        request.getRequestDispatcher("HomeController").forward(request, response);
                     }
                 }
             }
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
@@ -81,14 +87,15 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url = LOGIN_PAGE;
         try {
-            
+
             String username = request.getParameter("user");
             String password = request.getParameter("pass");
             String remember = request.getParameter("remember");
-
+            AccountDAO accountDAO = new AccountDAO();
             // check username, password
-            Account account = new AccountDAO().checkLogin(username, password);
+            Account account = accountDAO.checkLogin(username, password);
 
             if (account != null) { //hợp lệ -> lưu lên session
                 //remember
@@ -102,17 +109,21 @@ public class Login extends HttpServlet {
                 }
                 request.getSession().setAttribute("account", account);
                 if (account.getRole().getRole_name().equalsIgnoreCase("ADMIN")) {
-                    
+
                 } else {
-                    request.getRequestDispatcher("HomeController").forward(request, response);
+                    url = HOME_PAGE;
+//                    request.getRequestDispatcher("HomeController").forward(request, response);
                 }
 
                 //không remember
             } else {//Không hợp lệ -> trả về lỗi
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                request.setAttribute("WARNING", "Username Or Email Invalid!");
+                url = LOGIN_PAGE;
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 }

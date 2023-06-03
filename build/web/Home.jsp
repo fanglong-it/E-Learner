@@ -185,20 +185,20 @@
                 </div>
 
                 <div class="row row-cols-1 row-cols-md-3 g-4"">
-                <c:forEach items="${listSubjects}" var="S" begin="0" end="2" step="1">
+                <c:forEach items="${listCourses}" var="S" begin="0" end="2" step="1">
                     <div class="col">
                         <div class="card">
-                            <img src="${S.thumbnail}" class="card-img-top" alt="...">
+                            <img src="images/${S.image}" width="200px" height="200px" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">${S.subjectName}</h5>
+                                <h5 class="card-title">${S.courseName}</h5>
                                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                             </div>
                             <div class="card-footer">
-                                <a class="subjects-link btn btn-primary" data-bs-toggle="modal" href="#S${S.subjectId}">View Detail</a>
+                                <a class="subjects-link btn btn-primary" data-bs-toggle="modal" href="#S${S.id}">View Detail</a>
                             </div>
                         </div>
                     </div>
-                    <div class="subjects-modal modal fade" id="S${S.subjectId}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="subjects-modal modal fade" id="S${S.id}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="close-modal" data-bs-dismiss="modal"></div>
@@ -207,19 +207,19 @@
                                         <div class="col-sm-12">
                                             <div class="modal-body">
                                                 <!-- Project details-->
-                                                <h2 class="text-uppercase">${S.subjectName}</h2>
-                                                <img class="img-fluid d-block mx-auto" src="${S.thumbnail}" alt="..." />
+                                                <h2 class="text-uppercase">${S.courseName}</h2>
+                                                <img class="img-fluid d-block mx-auto" src="images/${S.image}" alt="..." />
                                                 <p>${S.description}</p>
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                                             <i class="fas fa-xmark me-1"></i>
-                                                            Close ${S.subjectName}
+                                                            Close ${S.courseName}
                                                         </button> 
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <a href="subject-detail?id=${S.getSubjectId()}" class="btn btn-success btn-xl text-uppercase">
-                                                            Detail of ${S.subjectName}
+                                                        <a href="subject-detail?id=${S.id}" class="btn btn-success btn-xl text-uppercase">
+                                                            Detail of ${S.courseName}
                                                         </a> 
                                                     </div>
                                                 </div>
