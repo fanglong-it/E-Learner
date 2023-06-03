@@ -59,6 +59,45 @@ public class AccountDAO {
         return null;
     }
 
+    public Account getAccountById(int id) throws SQLException, Exception {
+        String query = "SELECT * From Account a left outer join [Role] r on a.roleId  = r.roleId "
+                + " WHERE a.id = ? and a.status = '1'";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, id);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return Account.builder()
+                            .id(rs.getInt("id"))
+                            .username(rs.getString("username"))
+                            .password("*******")
+                            .status(rs.getInt("status"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .fullname(rs.getString("fullname"))
+                            .address(rs.getString("address"))
+                            .avatar(rs.getString("avatar"))
+                            .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
+                            .build();
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return null;
+    }
+
     public Account getLastAccount() throws SQLException, Exception {
         String query = "SELECT TOP(1) * From Account a left outer join Role r on a.roleId=r.roleId order by a.id desc";
         try {
@@ -133,6 +172,45 @@ public class AccountDAO {
         return null;
     }
 
+    public Account updateAccount(Account account) throws SQLException, Exception {
+        String query = "UPDATE Account"
+                + " SET username=?, status=?, email=?, phone=?,"
+                + " fullname=?, address=?, avatar=?, roleId=?"
+                + " WHERE id=?;";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, account.getUsername());
+//                ps.setString(2, account.getPassword());
+                ps.setInt(2, account.getStatus());
+                ps.setString(3, account.getEmail());
+                ps.setString(4, account.getPhone());
+                ps.setString(5, account.getFullname());
+                ps.setString(6, account.getAddress());
+                ps.setString(7, account.getAvatar());
+                ps.setInt(8, account.getRole().getRole_id());
+                ps.setInt(9, account.getId());
+                if (ps.executeUpdate() > 0) {
+                    return getAccountById(account.getId());
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return null;
+    }
+
+//    UPDATE [e-learner].dbo.Account SET username='', password='', status=0, email='', phone='', fullname='', address='', avatar='', roleId=0 WHERE id=0;
 //    public Account CheckAccountExit(String user) {
 //        String query = "  select * from Account  "
 //                + "where [username] = ?";

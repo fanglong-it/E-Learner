@@ -16,17 +16,18 @@ import lombok.Setter;
  *
  * @author DW
  */
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Course implements Serializable{
+public class Course implements Serializable {
+
     private int id;
     private String courseName;
     private int status;
     private String image;
     private String description;
     private Date createDate;
+    private Account account;
 }

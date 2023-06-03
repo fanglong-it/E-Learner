@@ -122,6 +122,44 @@ public class CourseDAO {
         return courses;
     }
 
+    public List<Course> getAllCoursesIncluceTeacher(String searchValue) throws SQLException, Exception {
+        AccountDAO accountDAO = new AccountDAO();
+        String query = "SELECT c.id , c.courseName , c.status , c.[image] , c.description, c.createDate, c2.id as accountId from Course c \n"
+                + "left outer join Class c2 ON c.id = c2.courseId "
+                + "where c.courseName like ?";
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, "%" + searchValue + "%");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    courses.add(Course.builder()
+                            .id(rs.getInt("id"))
+                            .courseName(rs.getString("courseName"))
+                            .status(rs.getInt("status"))
+                            .image(rs.getString("image"))
+                            .description(rs.getString("description"))
+                            .createDate(rs.getDate("createDate"))
+                            .account(accountDAO.getAccountById(rs.getInt("accountId")))
+                            .build());
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return courses;
+    }
+
 //    INSERT INTO [e-learner].dbo.Course (courseName, status, [image], description, createDate) VALUES('', 0, '', '', '');
     public Course saveCourse(Course course) throws SQLException, Exception {
         String query = "INSERT INTO Course (courseName, status, [image], description, createDate) VALUES(?, ?, ?, ?, ?);";

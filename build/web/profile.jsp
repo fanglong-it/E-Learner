@@ -21,10 +21,12 @@
                         <div class="col-sm-12">
                             <label for="fullname" class="font-weight-bold">Full name</label>
                             <input class="form-control" id="fullname" type="text"  name="fullname" value="${acc.fullname}" required/>
+                            <input class="form-control" id="fullname" type="hidden"  name="accountId" value="${acc.id}"/>
+
                         </div>
                         <div class="col-sm-12">
                             <label for="fullname" class="font-weight-bold">Phone</label>
-                            <input class="form-control" type="text" name="phone" value="${acc.phone}" required/>
+                            <input class="form-control" type="tel" name="phone" value="${acc.phone}" required/>
                         </div>
                         <div class="col-sm-12">
                             <label for="fullname" class="font-weight-bold">Email</label>
@@ -38,9 +40,12 @@
                             <label for="fullname" class="font-weight-bold">Address</label>
                             <input class="form-control" type="text" name="address" value="${acc.address}" />
                         </div>
-                        <div class="col-sm-12">
-                            <label for="fullname" class="font-weight-bold">Avatar</label>
-                            <input class="form-control" type="file" name="photo" value=""/>
+                        <div class="col-sm-12 form-control">
+                            <label for="check" class="font-weight-bold">Is Update Photo</label>
+                            <input id="check" type="checkbox" class="form-check" name="isUpdatePhoto"/>
+
+                            <label for="photo" class="font-weight-bold">Select Photo</label>
+                            <input id="photo" class="form-control" type="file" name="photo" value=""/>
                         </div>    
                         <div class="row p-3"></div>
                         <div class="col-sm-12">
@@ -50,7 +55,7 @@
                 </div>
                 <div class="col-sm-4">
                     <div id="avatar" class="">
-                        <img id="img" src="img/${acc.avatar}" alt="Avatar" width="250" height="250">
+                        <img id="img" src="images/${acc.avatar}" alt="Avatar" width="250" height="250">
                     </div>  
                 </div>
             </div>

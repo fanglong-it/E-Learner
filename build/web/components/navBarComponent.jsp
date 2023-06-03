@@ -11,26 +11,26 @@
             <ul class="navbar-nav">
                 <li></li>
                 <li class="nav-item me-5">
-                    <a class="nav-link active mt-2" style="padding-left: 30px" aria-current="page" href="HomeController">HOME</a>
+                    <a class="nav-link active mt-2 font-weight-bold" style="padding-left: 30px" aria-current="page" href="HomeController">HOME</a>
                 </li>
                 <li class="nav-item me-5">
-                    <a class="nav-link text-dark mt-2" href="subject-list">SUBJECT</a>
+                    <a class="nav-link text-dark mt-2" href="list-course?courseName="><span class="font-weight-bold">Course</span></a>
                 </li>
                 <li class="nav-item me-5">
-                    <a class="nav-link text-dark mt-2" href="#">navbar</a>
+                    <a class="nav-link text-dark mt-2" href="#"></a>
                 </li>
             </ul>
 
         </div>
-        <form class="d-flex" action="SearchUrl" method="POST" >
-            <div class="input-group">
-                <input type="search" name="keyword" id="form1" class="form-control" placeholder="Search"/>
-                <!--<label class="form-label" for="form1">Search</label>-->
-                <button type="submit" class="btn btn-primary">Search
-
-                </button>
-            </div>
-        </form>
+        <!--        <form class="d-flex" action="SearchUrl" method="POST" >
+                    <div class="input-group">
+                        <input type="search" name="keyword" id="form1" class="form-control" placeholder="Search"/>
+                        <label class="form-label" for="form1">Search</label>
+                        <button type="submit" class="btn btn-primary">Search
+        
+                        </button>
+                    </div>
+                </form>-->
         <!-- Avatar -->
         <div class="d-flex" style="margin-left: 10px">
             <c:choose>
@@ -38,7 +38,8 @@
 
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Welcome, ${sessionScope.account.username}
+                            ${sessionScope.account.username}
+                            <img width="50px" height="50px" src="images/${sessionScope.account.avatar}" alt="alt"/>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="profile">Information</a></li>
@@ -52,6 +53,14 @@
                     <a class="btn btn-warning" href="Login">Login</a>
                 </c:otherwise>       
             </c:choose>  
+        </div>
+        <div class="d-flex">
+            <c:choose>
+                <c:when test="${sessionScope.account != null}">
+
+                </c:when>     
+            </c:choose>  
+
         </div>
     </div>
 
