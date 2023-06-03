@@ -9,25 +9,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <jsp:include page="base-view/baseTag.jsp"></jsp:include>
+        <title>Forgot Pass</title>
+    </head>
 
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-            <link rel="stylesheet" href="./css/login.css">
-            <script src="./js/register.js"></script>
-            <title>Login</title>
-        </head>
+    <jsp:include page="components/header.jsp"></jsp:include>
 
         <body>
 
-        <jsp:include page="base-view/headerLogin.jsp"></jsp:include>
+        <jsp:include page="components/navBarComponent.jsp"></jsp:include>
 
             <main class="login-form">
                 <div class="cotainer">
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
-                                <div class="card-header">Login</div>
+                                <div class="card-header">Forgot pas</div>
                                 <div class="card-body">
 
                                 <c:if test="${success != null}">
@@ -41,7 +37,7 @@
                                 </c:if>
 
                                 <form action="ChangePasswordForgot" method="POST">
-                                   
+
                                     <input type="hidden" name="txtUserId" value="${requestScope.ACCOUNT.userid}" />
                                     <input type="hidden" name="txtToken" value="${requestScope.token}" />
                                     <div class="form-group row">

@@ -1,3 +1,5 @@
+package fu.swp.controller.user.password;
+
 //package fu.swp.controller.user;
 //
 //import fu.swp.dao.AccountDAO;

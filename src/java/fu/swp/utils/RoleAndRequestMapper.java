@@ -51,8 +51,6 @@ public class RoleAndRequestMapper {
         String key = "";
         if (allowedType == null || allowedType.isEmpty()) {
             
-            //http://localhost:8080/onlinelearn/about.html
-            
              key = url.replace("http://localhost:8084/E-Learner/", "http://localhost:8084/E-Learner/HomeController");
             
             if (key == null || key.isEmpty()) return true;
