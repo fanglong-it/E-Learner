@@ -16,6 +16,13 @@
                 <li class="nav-item me-5">
                     <a class="nav-link text-dark mt-2" href="list-course?courseName="><span class="font-weight-bold">Course</span></a>
                 </li>
+                <c:choose>
+                    <c:when test="${sessionScope.account != null}">
+                        <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
+                            <a class="nav-link text-dark mt-2" href="#">Manage Lesson</a>
+                        </c:if>
+                    </c:when>
+                </c:choose>
                 <li class="nav-item me-5">
                     <a class="nav-link text-dark mt-2" href="#"></a>
                 </li>

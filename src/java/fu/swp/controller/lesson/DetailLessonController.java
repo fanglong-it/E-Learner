@@ -2,13 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package fu.swp.controller.course;
+package fu.swp.controller.lesson;
 
-import fu.swp.dao.CourseDAO;
 import fu.swp.dao.LessonDAO;
-import fu.swp.dao.RegistrationDAO;
-import fu.swp.model.Account;
-import fu.swp.model.Course;
 import fu.swp.model.Lesson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,14 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DW
  */
-@WebServlet(name = "DetailCourseController", urlPatterns = {"/course-detail"})
-public class DetailCourseController extends HttpServlet {
+@WebServlet(name = "DetailLessonController", urlPatterns = {"/learn-lesson"})
+public class DetailLessonController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +39,10 @@ public class DetailCourseController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DetailCourseController</title>");
+            out.println("<title>Servlet DetailLessonController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DetailCourseController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DetailLessonController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,25 +60,19 @@ public class DetailCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CourseDAO courseDAO = new CourseDAO();
         LessonDAO lessonDAO = new LessonDAO();
-        RegistrationDAO registrationDAO = new RegistrationDAO();
-
-        String courseId = request.getParameter("courseId") == null ? "" : request.getParameter("courseId");
+        String lessonId = request.getParameter("lessonId") == null ? "" : request.getParameter("lessonId");
         try {
-            Course course = courseDAO.getCourseById(Integer.parseInt(courseId));
-            List<Lesson> lessons = lessonDAO.getLessonByCourseId(course.getId());
+            Lesson lesson = lessonDAO.getLessonId(Integer.parseInt(lessonId));
+            request.setAttribute("lesson", lesson);
+
+            List<Lesson> lessons = lessonDAO.getLessonByCourseId(lesson.getCourseId());
             request.setAttribute("lessons", lessons);
-            request.setAttribute("course", course);
-            
-            HttpSession session = request.getSession();
-            Account currentAccount = session.getAttribute("account") == null ? null : (Account) session.getAttribute("account");
-            request.setAttribute("isRegisterCourse", currentAccount == null ? false : registrationDAO.isRegistration(currentAccount.getId()));
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            request.getRequestDispatcher("detail-course.jsp").forward(request, response);
+            request.getRequestDispatcher("learn-lesson.jsp").forward(request, response);
         }
     }
 

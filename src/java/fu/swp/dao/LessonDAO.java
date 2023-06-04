@@ -1,0 +1,93 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package fu.swp.dao;
+
+import fu.swp.context.DBContext;
+import fu.swp.model.Lesson;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author DW
+ */
+public class LessonDAO {
+
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    public List<Lesson> getLessonByCourseId(int courseId) throws SQLException, Exception {
+        String query = "SELECT l.id, l.lessonName , l.status , l.description , l.videoUrl , l.courseId  FROM Lesson l"
+                + " WHERE l.courseId = ?";
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, courseId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    lessons.add(Lesson.builder()
+                            .id(rs.getInt("id"))
+                            .lessonName(rs.getString("lessonName"))
+                            .status(rs.getInt("status"))
+                            .description(rs.getString("description"))
+                            .videoUrl(rs.getString("videoUrl"))
+                            .courseId(rs.getInt("courseId")).build());
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return lessons;
+    }
+
+    public Lesson getLessonId(int lessonId) throws SQLException, Exception {
+        String query = "SELECT l.id, l.lessonName , l.status , l.description , l.videoUrl , l.courseId  FROM Lesson l"
+                + " WHERE l.id = ?";
+
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, lessonId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return Lesson.builder()
+                            .id(rs.getInt("id"))
+                            .lessonName(rs.getString("lessonName"))
+                            .status(rs.getInt("status"))
+                            .description(rs.getString("description"))
+                            .videoUrl(rs.getString("videoUrl"))
+                            .courseId(rs.getInt("courseId")).build();
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+}

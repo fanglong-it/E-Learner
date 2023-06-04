@@ -210,6 +210,47 @@ public class AccountDAO {
         return null;
     }
 
+    public Account getAccountByCourseId(int courseId) throws SQLException, Exception {
+        String query = "SELECT a.id, a.username, a.password, a.status, a.email, a.phone, a.fullname, a.address, a.avatar, a.roleId, r.roleName  from Account a \n"
+                + "left outer join Class c on a.id  = c.userId \n"
+                + "left outer join Role r on a.roleId = r.roleId\n"
+                + "where c.courseId = ?";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, courseId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return Account.builder()
+                            .id(rs.getInt("id"))
+                            .username(rs.getString("username"))
+                            .password("*******")
+                            .status(rs.getInt("status"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .fullname(rs.getString("fullname"))
+                            .address(rs.getString("address"))
+                            .avatar(rs.getString("avatar"))
+                            .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
+                            .build();
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return null;
+    }
+
 //    UPDATE [e-learner].dbo.Account SET username='', password='', status=0, email='', phone='', fullname='', address='', avatar='', roleId=0 WHERE id=0;
 //    public Account CheckAccountExit(String user) {
 //        String query = "  select * from Account  "

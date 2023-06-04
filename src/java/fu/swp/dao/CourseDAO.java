@@ -23,6 +23,7 @@ public class CourseDAO {
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
+    AccountDAO accountDAO = new AccountDAO();
 
     public Course getCourseById(int courseId) throws SQLException, Exception {
         String query = "SELECT * FROM Course c where c.id = ?";
@@ -40,6 +41,7 @@ public class CourseDAO {
                             .image(rs.getString("image"))
                             .description(rs.getString("description"))
                             .createDate(rs.getDate("createDate"))
+                            .account(accountDAO.getAccountByCourseId(rs.getInt("id")))
                             .build();
                 }
             }
@@ -123,7 +125,6 @@ public class CourseDAO {
     }
 
     public List<Course> getAllCoursesIncluceTeacher(String searchValue) throws SQLException, Exception {
-        AccountDAO accountDAO = new AccountDAO();
         String query = "SELECT c.id , c.courseName , c.status , c.[image] , c.description, c.createDate, c2.id as accountId from Course c \n"
                 + "left outer join Class c2 ON c.id = c2.courseId "
                 + "where c.courseName like ?";
@@ -190,5 +191,7 @@ public class CourseDAO {
         }
         return null;
     }
+    
+    
 
 }

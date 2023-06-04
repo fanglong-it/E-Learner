@@ -133,7 +133,7 @@
         <body id="page-top">
         <jsp:include page= "components/navBarComponent.jsp"></jsp:include>
             <div class="container">
- 
+
                 <div class="row" style="margin-top: 10px">
                     <div class="col-sm-12">
                         <h1>We school</h1>
@@ -194,42 +194,10 @@
                                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                             </div>
                             <div class="card-footer">
-                                <a class="subjects-link btn btn-primary" data-bs-toggle="modal" href="#S${S.id}">View Detail</a>
+                                <a class="subjects-link btn btn-primary" href="course-detail?courseId=${S.id}">Learn More</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="subjects-modal modal fade" id="S${S.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="close-modal" data-bs-dismiss="modal"></div>
-                                <div class="container">
-                                    <div class="row justify-content-center">
-                                        <div class="col-sm-12">
-                                            <div class="modal-body">
-                                                <!-- Project details-->
-                                                <h2 class="text-uppercase">${S.courseName}</h2>
-                                                <img class="img-fluid d-block mx-auto" src="images/${S.image}" alt="..." />
-                                                <p>${S.description}</p>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                                            <i class="fas fa-xmark me-1"></i>
-                                                            Close ${S.courseName}
-                                                        </button> 
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <a href="subject-detail?id=${S.id}" class="btn btn-success btn-xl text-uppercase">
-                                                            Detail of ${S.courseName}
-                                                        </a> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>                
                 </c:forEach>
             </div>
             <div class="row">

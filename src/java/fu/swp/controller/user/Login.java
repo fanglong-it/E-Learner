@@ -109,7 +109,7 @@ public class Login extends HttpServlet {
                 }
                 request.getSession().setAttribute("account", account);
                 if (account.getRole().getRole_name().equalsIgnoreCase("ADMIN")) {
-
+                    url = HOME_PAGE;
                 } else {
                     url = HOME_PAGE;
 //                    request.getRequestDispatcher("HomeController").forward(request, response);
