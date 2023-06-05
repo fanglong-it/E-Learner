@@ -124,6 +124,41 @@ public class CourseDAO {
         return courses;
     }
 
+    public List<Course> getAllCoursesByTeacherId(int userId) throws SQLException, Exception {
+        String query = "SELECT c.id, c.courseName, c.status, c.[image] , c.description , c.createDate  from Course c left outer join Class c2 on c.id  = c2.courseId \n"
+                + "WHERE c2.userId = ?;";
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, userId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    courses.add(Course.builder()
+                            .id(rs.getInt("id"))
+                            .courseName(rs.getString("courseName"))
+                            .status(rs.getInt("status"))
+                            .image(rs.getString("image"))
+                            .description(rs.getString("description"))
+                            .createDate(rs.getDate("createDate"))
+                            .build());
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return courses;
+    }
+
     public List<Course> getAllCoursesIncluceTeacher(String searchValue) throws SQLException, Exception {
         String query = "SELECT c.id , c.courseName , c.status , c.[image] , c.description, c.createDate, c2.id as accountId from Course c \n"
                 + "left outer join Class c2 ON c.id = c2.courseId "
@@ -191,7 +226,5 @@ public class CourseDAO {
         }
         return null;
     }
-    
-    
 
 }

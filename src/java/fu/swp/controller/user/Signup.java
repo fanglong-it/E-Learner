@@ -69,49 +69,46 @@ public class Signup extends HttpServlet {
             throws ServletException, IOException {
 //            String user = request.getParameter("username");
         String url = LOGIN_PAGE;
+        String msg = "";
         String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        String re_pass = request.getParameter("repass");
+        String pass = request.getParameter("password");
+        String re_pass = request.getParameter("rePassword");
+        String fullname = request.getParameter("fullname");
+        String phone = request.getParameter("phone");
         try {
-            AccountDAO dao = new AccountDAO();
+            AccountDAO accountDAO = new AccountDAO();
             if (!pass.equals(re_pass)) {
 //                response.sendRedirect(url);
-                url = LOGIN_PAGE;
+                msg = "Password not match!";
+                url = REGIS_PAGE;
             } else {
-                Account ac = null;
+                Account ac = accountDAO.getAccountByEmail(email);
                 if (ac == null) {
-                    // dc tao tk
-                    // dao.singup(user, pass, email, 0, avatar, address, gender, avatar);
                     String subject = "Verify your account form E-Learner";
-                        String message = "<!DOCTYPE html>\n"
-                                + "            <html lang=\"en\">\n"
-                                + "            <head>\n"
-                                + "            </head>\n"
-                                + "            <body style=\"color:#000;\">\n"
-                                + "                <h3>Welcome to join E-learning</h3>\n"
-                                + "                <p>Please click here to verify your account</p>\n"
-                                + "                \n"
-                                + "                <form id=\"myForm\" method=\"POST\" action=\"\" + Base.LINK_VERIFY \">\n"
-                                + "                    <input type=\"hidden\" value=\"\" + email \" id=\"email\" name=\"email\">\n"
-                                + "                    <input type=\"hidden\" value=\"\" + pass \" id=\"password\" name=\"password\">\n"
-                                + "                    <input type=\"submit\" value=\"Verify\" \n"
-                                + "                        style=\"padding: 10px 15px;color: #fff;background-color: rgb(0, 149, 255);border-radius: 10px;border:none\"\n"
-                                + "                    >\n"
-                                + "             </form>\n"
-                                + "              <h4>Thank you very much</h4>\n"
-                                + "            </body>\n"
-                                + "            </html>";
-                    Account account = new AccountDAO().saveAccount(new Account(0, email, pass, 0, email, "", "", "", "", new Role(3, Base.ROLE_STUDENT)));
+                    
+                    String link = Base.LINK_VERIFY + "?email=" + email + "&password=" + pass;
+                    String message = "<!DOCTYPE html>\n"
+                            + "<html lang=\"en\">\n"
+                            + "<head>\n"
+                            + "</head>\n"
+                            + "<body style=\"color:#000;\">\n"
+                            + "    <h3>Welcome to join E-learning</h3>\n"
+                            + "    <p>Please click <a href=\"" + link + "\">here</a> to verify your account</p>\n"
+                            + "    <h4>Thank you very much</h4>\n"
+                            + "</body>\n"
+                            + "</html>";
+                    Account account = accountDAO.saveAccount(new Account(0, email, pass, 0, email, phone, fullname, "", "", new Role(3, Base.ROLE_STUDENT)));
                     if (account != null) {
                         MailSender.send(subject, message, email);
-                        System.out.println("Send Mail Success to " + email);
+                        msg = "Please Check your mail Box!";
+                        url = LOGIN_PAGE;
                     }
                 } else {
-                    // day ve login
-//                    response.sendRedirect("Signup.jsp");
-                    url = REGIS_PAGE;
+                    msg = "Your Account already Exist!";
+                    url = LOGIN_PAGE;
                 }
             }
+            request.setAttribute("ERROR", msg);
 
         } catch (Exception e) {
             e.printStackTrace();

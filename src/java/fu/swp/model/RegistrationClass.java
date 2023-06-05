@@ -27,6 +27,7 @@ public class RegistrationClass implements Serializable{
     private String requestStatus;
     private int classId;
     private int accountId;
+    private Account account;
 }
 
 

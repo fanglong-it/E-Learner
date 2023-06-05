@@ -19,7 +19,14 @@
                 <c:choose>
                     <c:when test="${sessionScope.account != null}">
                         <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
-                            <a class="nav-link text-dark mt-2" href="#">Manage Lesson</a>
+                            <li class="nav-item me-5">
+                                <a class="nav-link text-dark mt-2" href="manager-course">Manage Course</a>
+                            </li>
+                        </c:if>
+                        <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
+                            <li class="nav-item me-5">
+                                <a class="nav-link text-dark mt-2" href="manager-class">Manage class</a>
+                            </li>
                         </c:if>
                     </c:when>
                 </c:choose>
@@ -44,7 +51,7 @@
                 <c:when test="${sessionScope.account != null}">
 
                     <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             ${sessionScope.account.username}
                             <img width="50px" height="50px" src="images/${sessionScope.account.avatar}" alt="alt"/>
                         </button>
@@ -57,7 +64,7 @@
 
                 </c:when>
                 <c:otherwise>
-                    <a class="btn btn-warning" href="Login">Login</a>
+                    <a class="btn btn-outline-light " style="color: darkblue" href="Login">Login</a>
                 </c:otherwise>       
             </c:choose>  
         </div>

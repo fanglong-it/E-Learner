@@ -3,7 +3,7 @@
     Created on : May 26, 2022, 9:02:11 PM
     Author     : thuong
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -70,6 +70,11 @@
                             </form>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <c:if test="${requestScope.ERROR}">
+                        <p class="text-danger">${requestScope.ERROR}</p>
+                    </c:if>
                 </div>
             </div>
            

@@ -98,6 +98,45 @@ public class AccountDAO {
         return null;
     }
 
+    public Account getAccountByEmail(String email) throws SQLException, Exception {
+        String query = "SELECT * From Account a left outer join [Role] r on a.roleId  = r.roleId "
+                + " WHERE a.email = ?";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, email);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return Account.builder()
+                            .id(rs.getInt("id"))
+                            .username(rs.getString("username"))
+                            .password("*******")
+                            .status(rs.getInt("status"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .fullname(rs.getString("fullname"))
+                            .address(rs.getString("address"))
+                            .avatar(rs.getString("avatar"))
+                            .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
+                            .build();
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return null;
+    }
+
     public Account getLastAccount() throws SQLException, Exception {
         String query = "SELECT TOP(1) * From Account a left outer join Role r on a.roleId=r.roleId order by a.id desc";
         try {
@@ -208,6 +247,35 @@ public class AccountDAO {
 
         }
         return null;
+    }
+
+    public boolean updateAccountStatus(String email, int status) throws SQLException, Exception {
+        String query = "UPDATE Account"
+                + " SET status = ?"
+                + " WHERE email=?;";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, status);
+                ps.setString(2, email);
+                if (ps.executeUpdate() > 0) {
+                    return true;
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return false;
     }
 
     public Account getAccountByCourseId(int courseId) throws SQLException, Exception {
