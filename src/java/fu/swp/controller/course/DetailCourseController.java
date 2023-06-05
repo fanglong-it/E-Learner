@@ -77,16 +77,16 @@ public class DetailCourseController extends HttpServlet {
             List<Lesson> lessons = lessonDAO.getLessonByCourseId(course.getId());
             request.setAttribute("lessons", lessons);
             request.setAttribute("course", course);
-            
+
             List<fu.swp.model.Class> classes = classDAO.getClassByCourseId(Integer.parseInt(courseId));
             request.setAttribute("classes", classes);
-            
+
             HttpSession session = request.getSession();
             Account currentAccount = session.getAttribute("account") == null ? null : (Account) session.getAttribute("account");
 //            request.setAttribute("isSendRequest", registrationDAO.isRegistration(0));
-            request.setAttribute("isRegisterCourse", currentAccount == null ? false : registrationDAO.isRegistration(currentAccount.getId()));
+            request.setAttribute("isRegisterCourse", currentAccount == null ? false : registrationDAO.isRegistration(currentAccount.getId(), course.getId()));
             request.setAttribute("isOwner", classDAO.isOwnerCourse(course.getId(), currentAccount.getId()));
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

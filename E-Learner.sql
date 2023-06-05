@@ -196,10 +196,10 @@ VALUES (4, 'CUSTOMER');
 
 -- [e-learner].dbo.Account
 INSERT INTO [e-learner].dbo.Account (username, password, status, email, phone, fullname, address, avatar, roleId)
-VALUES ('teacher', 'teacher', 1, 'user1@example.com', '123456789', 'User 1', 'Address 1', 'avatar1.jpg', 2);
+VALUES ('admin', 'admin', 1, 'user1@example.com', '123456789', 'User 1', 'Address 1', 'avatar1.jpg', 1);
 
 INSERT INTO [e-learner].dbo.Account (username, password, status, email, phone, fullname, address, avatar, roleId)
-VALUES ('admin', 'admin', 1, 'admin@example.com', '987654321', 'Administrator', 'Admin Address', 'adminavatar.jpg', 1);
+VALUES ('teacher', 'teacher', 1, 'admin@example.com', '987654321', 'Administrator', 'Admin Address', 'adminavatar.jpg', 2);
 
 INSERT INTO [e-learner].dbo.Account (username, password, status, email, phone, fullname, address, avatar, roleId)
 VALUES ('student', 'student', 1, 'user1@example.com', '123456789', 'User 1', 'Address 1', 'avatar1.jpg', 3);

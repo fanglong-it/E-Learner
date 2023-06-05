@@ -187,14 +187,17 @@ public class RegistrationDAO {
         return null;
     }
 
-    public boolean isRegistration(int accountId) throws SQLException, Exception {
+    public boolean isRegistration(int accountId, int courseId) throws SQLException, Exception {
         String query = "SELECT rc.id, rc.requestDate , rc.requestStatus , rc.classId , rc.accountId\n"
-                + "from RegistrationClass rc WHERE rc.accountId = ? and rc.requestStatus = 'Approved'; ";
+                + "                from RegistrationClass rc\n"
+                + "               	left outer join Class c ON rc.classId = c.id          \n"
+                + "                WHERE rc.accountId = ? and rc.requestStatus = 'Approved' and c.courseId = ?; ";
         try {
             con = DBContext.makeConnection();
             if (con != null) {
                 ps = con.prepareStatement(query);
                 ps.setInt(1, accountId);
+                ps.setInt(2, courseId);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     return true;
