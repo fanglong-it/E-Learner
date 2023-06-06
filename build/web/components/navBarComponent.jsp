@@ -14,25 +14,38 @@
                     <a class="nav-link active mt-2 font-weight-bold" style="padding-left: 30px" aria-current="page" href="HomeController">HOME</a>
                 </li>
                 <li class="nav-item me-5">
-                    <a class="nav-link text-dark mt-2" href="list-course?courseName="><span class="font-weight-bold">Course</span></a>
+                    <a class="nav-link text-dark mt-2" href="list-course?courseName="><span class="font-weight-bold">COURSE</span></a>
                 </li>
                 <c:choose>
                     <c:when test="${sessionScope.account != null}">
                         <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
                             <li class="nav-item me-5">
-                                <a class="nav-link text-dark mt-2" href="manager-course">Manage Course</a>
+                                <a class="nav-link text-dark mt-2" href="manager-course">MANAGE COURSE</a>
                             </li>
-                        </c:if>
-                        <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
                             <li class="nav-item me-5">
-                                <a class="nav-link text-dark mt-2" href="manager-class">Manage class</a>
+                                <a class="nav-link text-dark mt-2" href="manager-class">MANAGE CLASS</a>
                             </li>
+
                         </c:if>
+                            <li class="nav-item me-5 dropdown mt-2">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                YOUR CLASS
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="view-group-chat">View Group Chat</a></li>
+                                <li><a class="dropdown-item" href="#">View Request</a></li>
+                                    <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
+                                        <li><a class="dropdown-item" href="#">Create Chat</a></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </c:if>
+                            </ul>
+                        </li>
                     </c:when>
+                    <c:otherwise>
+
+                    </c:otherwise>
                 </c:choose>
-                <li class="nav-item me-5">
-                    <a class="nav-link text-dark mt-2" href="#"></a>
-                </li>
+             
             </ul>
 
         </div>

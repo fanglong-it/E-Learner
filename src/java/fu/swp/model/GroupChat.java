@@ -5,6 +5,7 @@
 package fu.swp.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,15 +14,16 @@ import lombok.Setter;
  *
  * @author DW
  */
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class GroupChat {
+
     private int id;
     private String groupChatName;
     private int isPrivate;
-    private int classId;
+    private Class clas;
     private Account account;
 }
-
