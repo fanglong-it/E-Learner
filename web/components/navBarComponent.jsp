@@ -18,7 +18,7 @@
                 </li>
                 <c:choose>
                     <c:when test="${sessionScope.account != null}">
-                        <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
+                        <c:if test="${sessionScope.account.role.role_name != 'STUDENT'}">
                             <li class="nav-item me-5">
                                 <a class="nav-link text-dark mt-2" href="manager-course">MANAGE COURSE</a>
                             </li>
@@ -27,7 +27,7 @@
                             </li>
 
                         </c:if>
-                            <li class="nav-item me-5 dropdown mt-2">
+                        <li class="nav-item me-5 dropdown mt-2">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 YOUR CLASS
                             </a>
@@ -35,8 +35,8 @@
                                 <li><a class="dropdown-item" href="view-group-chat">View Group Chat</a></li>
                                 <li><a class="dropdown-item" href="#">View Request</a></li>
                                     <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
-                                        <li><a class="dropdown-item" href="#">Create Chat</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item" href="#">Create Chat</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
                                     </c:if>
                             </ul>
                         </li>
@@ -45,7 +45,7 @@
 
                     </c:otherwise>
                 </c:choose>
-             
+
             </ul>
 
         </div>

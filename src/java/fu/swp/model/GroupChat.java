@@ -25,5 +25,4 @@ public class GroupChat {
     private String groupChatName;
     private int isPrivate;
     private Class clas;
-    private Account account;
 }

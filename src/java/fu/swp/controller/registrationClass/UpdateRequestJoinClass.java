@@ -4,11 +4,19 @@
  */
 package fu.swp.controller.registrationClass;
 
+import fu.swp.dao.AccountDAO;
+import fu.swp.dao.GroupChatDAO;
+import fu.swp.dao.MemberDAO;
+import fu.swp.dao.MessageDAO;
 import fu.swp.dao.RegistrationDAO;
 import fu.swp.model.Account;
+import fu.swp.model.GroupChat;
+import fu.swp.model.Member;
+import fu.swp.model.Message;
 import fu.swp.model.RegistrationClass;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,6 +72,11 @@ public class UpdateRequestJoinClass extends HttpServlet {
         String url = "course-detail";
         try {
 
+            GroupChatDAO groupChatDAO = new GroupChatDAO();
+            AccountDAO accountDAO = new AccountDAO();
+            MemberDAO memberDAO = new MemberDAO();
+            MessageDAO messageDAO = new MessageDAO();
+
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("account");
             if (account != null) {
@@ -71,6 +84,15 @@ public class UpdateRequestJoinClass extends HttpServlet {
                 String status = request.getParameter("regisStatus");
                 RegistrationDAO registrationDAO = new RegistrationDAO();
                 RegistrationClass registrationClass = registrationDAO.updateRequestJoinClass(Integer.parseInt(regisId), status);
+                if (registrationClass.getRequestStatus().equals("Approved")) {
+                    List<GroupChat> groupChats = groupChatDAO.getAllGroupChatByClassId(registrationClass.getClassId());
+                    Account memberAcc = accountDAO.getAccountById(registrationClass.getAccountId());
+                    for (GroupChat groupChat : groupChats) {
+                        Member member = new Member(0, memberAcc, groupChat);
+                        memberDAO.saveMemberChat(member);
+                        messageDAO.sendMessage(new Message(0, memberAcc.getEmail() + " Has Join!", "", memberAcc, groupChat.getId(), null));
+                    }
+                }
                 url = "view-request?classId=" + registrationClass.getClassId();
             } else {
                 url = "Login.jsp";

@@ -4,13 +4,18 @@
  */
 package fu.swp.controller.lesson;
 
+import fu.swp.dao.LessonDAO;
+import fu.swp.model.Account;
+import fu.swp.model.Lesson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,7 +41,7 @@ public class ManagerLesson extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerLesson</title>");            
+            out.println("<title>Servlet ManagerLesson</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ManagerLesson at " + request.getContextPath() + "</h1>");
@@ -57,7 +62,25 @@ public class ManagerLesson extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String url = "manager-lesson.jsp";
+        try {
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("account");
+            if (account != null) {
+                String courseId = request.getParameter("courseId") == null ? "" : request.getParameter("courseId");
+                LessonDAO lessonDAO = new LessonDAO();
+                List<Lesson> lessons = lessonDAO.getLessonByCourseId(Integer.parseInt(courseId));
+                request.setAttribute("lessons", lessons);
+            } else {
+                url = "Login.jsp";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+
+        }
     }
 
     /**

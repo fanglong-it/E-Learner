@@ -43,7 +43,7 @@
                                     </td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${c.requestStatus == 'Approve'}">
+                                            <c:when test="${c.requestStatus == 'Approved'}">
                                                 <a class="btn btn-danger" href="update-request?regisId=${c.id}&regisStatus=Pending">Remove</a>
                                             </c:when>
                                             <c:otherwise>

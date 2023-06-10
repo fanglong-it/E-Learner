@@ -25,7 +25,7 @@
                                     <th scope="col">groupChatName</th>
                                     <th scope="col">isPrivate</th>
                                     <th scope="col">Class</th>
-                                    <th scope="col">User</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,9 +35,19 @@
                                     <td>${c.groupChatName}</td>
                                     <td>${c.isPrivate}</td>
                                     <td>${c.clas.className}</td>
-                                    <td>${c.account.fullname}</td>
+
                                     <td>
-                                        <a class="btn btn-primary" href="chat-content?groupChatId=${c.id}&rows=${requestScope.rows}">Join</a>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.account.role.role_name != 'STUDENT'}">
+                                                <a class="btn btn-danger" href="#">Edit User</a>
+                                                <a class="btn btn-primary" href="chat-content?groupChatId=${c.id}&rows=${requestScope.rows}">Join</a>
+                                        
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a class="btn btn-primary" href="chat-content?groupChatId=${c.id}&rows=${requestScope.rows}">Join</a>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                     </td>
                                 </tr>                             
                             </c:forEach>

@@ -78,7 +78,7 @@ public class SendRequestJoinClass extends HttpServlet {
                     request.setAttribute("error", "You can't Send Request");
                 } else {
                     long currentDate = System.currentTimeMillis();
-                    if (registrationDAO.isSendRegistration(Integer.parseInt(classId), Integer.parseInt(courseId))) {
+                    if (!registrationDAO.isSendRegistration(Integer.parseInt(classId), Integer.parseInt(courseId))) {
                         RegistrationClass registrationClass
                                 = registrationDAO.saveRegistrationClass(new RegistrationClass(0, new Date(currentDate), "Pending",
                                         Integer.parseInt(classId), account.getId(), account));
