@@ -106,7 +106,6 @@ CREATE TABLE [e-learner].dbo.GroupChat (
 	userId int NULL,
 	CONSTRAINT PK__GroupCha__3213E83FDBD43DC8 PRIMARY KEY (id),
 	CONSTRAINT FK__GroupChat__class__4AB81AF0 FOREIGN KEY (classId) REFERENCES [e-learner].dbo.Class(id),
-	CONSTRAINT FK__GroupChat__userI__4BAC3F29 FOREIGN KEY (userId) REFERENCES [e-learner].dbo.Account(id)
 );
 
 
@@ -128,6 +127,22 @@ CREATE TABLE [e-learner].dbo.Lesson (
 );
 
 
+-- [e-learner].dbo.[Member] definition
+
+-- Drop table
+
+-- DROP TABLE [e-learner].dbo.[Member];
+
+CREATE TABLE [e-learner].dbo.[Member] (
+	id int IDENTITY(1,1) NOT NULL,
+	groupChatId int NULL,
+	userId int NULL,
+	isLeader int NULL,
+	CONSTRAINT PK__Member__3213E83FDBD43DC8 PRIMARY KEY (id),
+	CONSTRAINT FK__Member__groupCha__2CF2ADDF FOREIGN KEY (groupChatId) REFERENCES [e-learner].dbo.GroupChat(id),
+	CONSTRAINT FK__Member__userId__2DE6D218 FOREIGN KEY (userId) REFERENCES [e-learner].dbo.Account(id)
+);
+
 -- [e-learner].dbo.Message definition
 
 -- Drop table
@@ -140,6 +155,7 @@ CREATE TABLE [e-learner].dbo.Message (
 	resoucePathFile nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	userId int NULL,
 	groupId int NULL,
+	dateSended datetime NULL,
 	CONSTRAINT PK__Message__3213E83F99F8FAF6 PRIMARY KEY (id),
 	CONSTRAINT FK__Message__groupId__4F7CD00D FOREIGN KEY (groupId) REFERENCES [e-learner].dbo.GroupChat(id),
 	CONSTRAINT FK__Message__userId__4E88ABD4 FOREIGN KEY (userId) REFERENCES [e-learner].dbo.Account(id)
@@ -277,11 +293,11 @@ VALUES ('Lesson 1', 1, 'Description for Lesson 1', 'MRZmg2-Egpw', 4);
 
 
 -- [e-learner].dbo.GroupChat
-INSERT INTO [e-learner].dbo.GroupChat (groupChatName, isPrivate, classId, userId)
-VALUES ('Group Chat 1', 0, 1, 2);
+INSERT INTO [e-learner].dbo.GroupChat (groupChatName, isPrivate, classId)
+VALUES ('Group Chat 1', 0, 1);
 
-INSERT INTO [e-learner].dbo.GroupChat (groupChatName, isPrivate, classId, userId)
-VALUES ('Group Chat 2', 1, 2, 2);
+INSERT INTO [e-learner].dbo.GroupChat (groupChatName, isPrivate, classId)
+VALUES ('Group Chat 2', 1, 2);
 
 
 
