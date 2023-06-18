@@ -13,7 +13,7 @@
             <div id="container">
                 <div class="row">
                     <div class="col-sm-8">
-                        <form action="profile" class="form-control m-1" method="POST" onsubmit="" enctype="multipart/form-data">
+                        <form action="profile" class="form-control m-1 bg-light" method="POST" onsubmit="" enctype="multipart/form-data">
                             <h3>Your Profile</h3>
                         <c:if test="${isNoti != null}">
                             <span>Profile has been changed successfully!</span>
@@ -33,14 +33,13 @@
                             <input class="form-control" type="text" name="email" value="${acc.email}" disabled="disabled"/>
                         </div>
                         <div class="col-sm-12">
-                            <label for="fullname" class="font-weight-bold">Password</label>
-                            <a class="form-control btn btn-danger" href="ChangePassword">Change password</a>
+                            <a class="btn btn-danger animated mt-3" href="ChangePassword">Change password</a>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 mt-3">
                             <label for="fullname" class="font-weight-bold">Address</label>
                             <input class="form-control" type="text" name="address" value="${acc.address}" />
                         </div>
-                        <div class="col-sm-12 form-control">
+                        <div class="col-sm-12 form-control mt-3">
                             <label for="check" class="font-weight-bold">Is Update Photo</label>
                             <input id="check" type="checkbox" class="form-check" name="isUpdatePhoto"/>
 
@@ -54,8 +53,8 @@
                     </form> 
                 </div>
                 <div class="col-sm-4">
-                    <div id="avatar" class="">
-                        <img id="img" src="images/${acc.avatar}" alt="Avatar" width="250" height="250">
+                    <div id="avatar" class="rounded">
+                        <img id="img" class="rounded-circle" src="images/${acc.avatar}" alt="Avatar" width="250" height="250">
                     </div>  
                 </div>
             </div>

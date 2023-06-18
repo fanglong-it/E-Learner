@@ -1,70 +1,60 @@
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <img src="https://daihoc.fpt.edu.vn/wp-content/uploads/2023/04/cropped-cropped-2021-FPTU-Long.png" width="100px" height="50px" alt="alt"/>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li></li>
-                <li class="nav-item me-5">
-                    <a class="nav-link active mt-2 font-weight-bold" style="padding-left: 30px" aria-current="page" href="HomeController">HOME</a>
-                </li>
-                <li class="nav-item me-5">
-                    <a class="nav-link text-dark mt-2" href="list-course?courseName="><span class="font-weight-bold">COURSE</span></a>
-                </li>
-                <c:choose>
-                    <c:when test="${sessionScope.account != null}">
-                        <c:if test="${sessionScope.account.role.role_name != 'STUDENT'}">
-                            <li class="nav-item me-5">
-                                <a class="nav-link text-dark mt-2" href="manager-course">MANAGE COURSE</a>
-                            </li>
-                            <li class="nav-item me-5">
-                                <a class="nav-link text-dark mt-2" href="manager-class">MANAGE CLASS</a>
-                            </li>
-
-                        </c:if>
-                        <li class="nav-item me-5 dropdown mt-2">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                YOUR CLASS
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="view-group-chat">View Group Chat</a></li>
-                                <li><a class="dropdown-item" href="#">View Request</a></li>
-                                    <c:if test="${sessionScope.account.role.role_name == 'TEACHER'}">
-                                    <li><a class="dropdown-item" href="#">Create Chat</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </c:if>
-                            </ul>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-
-                    </c:otherwise>
-                </c:choose>
-
-            </ul>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">  
+        <h2 class="m-0 text-primary"><img src="https://i.chungta.vn/2017/12/22/LogoFPT-2017-copy-3042-1513928399.jpg" width="50px" height="50px" alt="alt"/>eLEARNING</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="HomeController" class="nav-item nav-link">Home</a>
+            <a href="about.jsp" class="nav-item nav-link">About</a>
+            <a href="list-course?courseName=" class="nav-item nav-link">Courses</a>
+            <c:choose>
+                <c:when test="${sessionScope.account != null}">
+                    <c:if test="${sessionScope.account.role.role_name != 'STUDENT'}">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Manager</a>
+                            <div class="dropdown-menu fade-down m-0">
+                                <a href="manager-course" class="dropdown-item">MANAGE COURSE</a>
+                                <a href="manager-class" class="dropdown-item">MANAGE CLASS</a>
+                            </div>
+                        </div>
+                    </c:if>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Your Class</a>
+                        <div class="dropdown-menu fade-down m-0">
+                            <c:if test="${sessionScope.account.role.role_name != 'STUDENT'}">
+                                <a class="dropdown-item" href="#">CREATE CHAT</a>
+                            </c:if>
+                            <a href="view-group-chat" class="dropdown-item">GROUP CHATs</a>
+                            <a href="manager-class" class="dropdown-item">REQUESTS</a>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu fade-down m-0">
+                            <a href="team.html" class="dropdown-item">Our Team</a>
+                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                            <a href="404.html" class="dropdown-item">404 Page</a>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
         </div>
-        <!--        <form class="d-flex" action="SearchUrl" method="POST" >
-                    <div class="input-group">
-                        <input type="search" name="keyword" id="form1" class="form-control" placeholder="Search"/>
-                        <label class="form-label" for="form1">Search</label>
-                        <button type="submit" class="btn btn-primary">Search
-        
-                        </button>
-                    </div>
-                </form>-->
-        <!-- Avatar -->
         <div class="d-flex" style="margin-left: 10px">
             <c:choose>
                 <c:when test="${sessionScope.account != null}">
-
                     <div class="dropdown">
-                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-outline-light dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             ${sessionScope.account.username}
                             <img width="50px" height="50px" src="images/${sessionScope.account.avatar}" alt="alt"/>
                         </button>
@@ -77,22 +67,13 @@
 
                 </c:when>
                 <c:otherwise>
-                    <a class="btn btn-outline-light " style="color: darkblue" href="Login">Login</a>
+                    <a class="btn btn-primary py-4 px-lg-5 d-none d-lg-block" href="Login">Join Now</a>
                 </c:otherwise>       
             </c:choose>  
         </div>
-        <div class="d-flex">
-            <c:choose>
-                <c:when test="${sessionScope.account != null}">
-
-                </c:when>     
-            </c:choose>  
-
-        </div>
     </div>
-
-
 </nav>
+<!-- Navbar End -->
 
 
 

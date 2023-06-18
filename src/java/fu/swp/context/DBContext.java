@@ -15,7 +15,7 @@ public class DBContext {
      public static Connection makeConnection() throws Exception {
         Connection cn = null;
         String IP = "localhost";
-        String instanceName = "KDICHIGO";
+        String instanceName = "LONGPC";
         String port = "1433";
         String uid = "sa";
         String pwd = "Cunplong115@";

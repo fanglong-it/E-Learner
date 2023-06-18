@@ -16,6 +16,14 @@
         <jsp:include page= "components/navBarComponent.jsp"></jsp:include>
             <div class="container">
                 <h1>Your Group Chat</h1>
+                <div class="row">
+                    <div class="col-sm-2">
+                        
+                        
+                    </div>
+                    <div class="col-sm-10"></div>
+                </div>
+                
                 <div class="row align-content-center">
                     <div class="">
                         <table class="table table-striped">
@@ -78,7 +86,6 @@
                                     </div>
                                 </c:forEach>
                             </div>
-
                         </div>
                         <div class="row mt-3">
                             <form method="post" action="chat-content">

@@ -8,273 +8,303 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <style>
-        .our-team{
-            overflow: hidden;
-            border-radius: 50%;
-            position: relative;
-            box-shadow: 0 10px 40px -10px rgba(0,64,128,.2);
-        }
-        .our-team img{
-            width: 100%;
-            height: auto;
-            position: relative;
-            right: 0;
-            -webkit-transition: all 0.4s ease-in-out 0s;
-            transition: all 0.4s ease-in-out 0s;
-        }
-        .our-team:hover img{
-            right: 60%;
-        }
-        .our-team .team-content{
-            width: 80%;
-            height: 100%;
-            background: #fcfcfc;
-            padding: 20% 30px 0;
-            position: absolute;
-            top: 0;
-            right: -80%;
-            -webkit-transition: all 0.4s ease-in-out 0s;
-            transition: all 0.4s ease-in-out 0s;
-        }
-        .our-team:hover .team-content{
-            right: 0;
-        }
-        .our-team .title {
-            font-size: 22px;
-            color: #554c86;
-            margin: 0 0 5px 0;
-            font-weight: 500;
-        }
-        .our-team .post {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-        .our-team .description{
-            font-size: 14px;
-            color: #191b26;
-        }
-        .our-team .social{
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-        .our-team .social li{
-            display: inline-block;
-            margin-right: 10px;
-        }
-        .our-team .social li:last-child{
-            margin-right: 0;
-        }
-        .our-team .social li a {
-            display: block;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
-            font-size: 14px;
-            color: #fff;
-            border-radius: 4px;
-            text-align: center;
-            -webkit-transition: all 0.3s ease-in-out 0s;
-            transition: all 0.3s ease-in-out 0s;
-            border: 1px solid #eee;
-        }
-        .our-team .social li a:hover{
-            color: #fff;
-        }
-        .our-team .social li a.fa-facebook{
-            background: #3b5a9b;
-            border: 1px solid #3b5a9b;
-        }
-        .our-team .social li a.fa-twitter{
-            background: #2baae1;
-            border: 1px solid #2baae1;
-        }
-        .our-team .social li a.fa-youtube{
-            background: #c3181e;
-            border: 1px solid #c3181e;
-        }
-        @media only screen and (max-width: 990px){
-            .our-team{
-                margin-bottom: 50px;
-            }
-        }
-        @media only screen and (max-width: 360px){
-            .team-content{
-                padding: 15% 15px 0;
-            }
-            .our-team .social li{
-                margin-right: 0;
-            }
-        }
-        a{
-            text-decoration:none;
-        }
-
-        .section-title {
-            margin-bottom: 60px;
-        }
-        .text-center {
-            text-align: center!important;
-        }
-
-        .section-title h2 {
-            font-size: 45px;
-            font-weight: 600;
-            margin-top: 0;
-            position: relative;
-            text-transform: capitalize;
-        }
-    </style>
     <jsp:include page="components/header.jsp"></jsp:include>
         <body id="page-top">
         <jsp:include page= "components/navBarComponent.jsp"></jsp:include>
-            <div class="container">
+            <div class="">
+                <!-- Spinner Start -->
+                <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <!-- Spinner End -->
 
-                <div class="row" style="margin-top: 10px">
-                    <div class="col-sm-12">
-                        <h1>We school</h1>
-                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="	https://images2.thanhnien.vn/Uploaded/trinm/2023_01_04/fpthanoi01-130.jpg
-                                         " class="d-block w-100" height="350px" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>First slide label</h5>
-                                        <p>Some representative placeholder content for the first slide.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="	https://covid19.qltns.mediacdn.vn/2021/1/31/dh-1612100077948503798298.jpg" class="d-block w-100" height="350px" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Second slide label</h5>
-                                        <p>Some representative placeholder content for the second slide.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="	https://tostemvietnam.com/wp-content/uploads/2021/10/FPT-University-1.jpg" class="d-block w-100" height="350px" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Third slide label</h5>
-                                        <p>Some representative placeholder content for the third slide.</p>
+                <!-- Carousel Start -->
+                <div class="container-fluid p-0 mb-5">
+                    <div class="owl-carousel header-carousel position-relative">
+                        <div class="owl-carousel-item position-relative">
+                            <img class="img-fluid" src="img/carousel-1.jpg" alt="">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                                <div class="container">
+                                    <div class="row justify-content-start">
+                                        <div class="col-sm-10 col-lg-8">
+                                            <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
+                                            <h1 class="display-3 text-white animated slideInDown">The Best Online Learning Platform</h1>
+                                            <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
+                                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                            <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                        </div>
+                        <div class="owl-carousel-item position-relative">
+                            <img class="img-fluid" src="img/carousel-2.jpg" alt="">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                                <div class="container">
+                                    <div class="row justify-content-start">
+                                        <div class="col-sm-10 col-lg-8">
+                                            <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
+                                            <h1 class="display-3 text-white animated slideInDown">Get Educated Online From Your Home</h1>
+                                            <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
+                                            <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                            <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Subjects-->
-                <div class="text-center" style="margin-top: 10px">
-                    <h2 class="section-heading text-uppercase">Most View Subject</h2>
-                    <h3 class="section-subheading text-muted"></h3>
-                </div>
+                <!-- Carousel End -->
 
-                <div class="row row-cols-1 row-cols-md-3 g-4"">
-                <c:forEach items="${listCourses}" var="S" begin="0" end="2" step="1">
-                    <div class="col">
-                        <div class="card">
-                            <img src="images/${S.image}" width="200px" height="200px" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">${S.courseName}</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <!-- Service Start -->
+                <div class="container-xxl py-5">
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="service-item text-center pt-3">
+                                    <div class="p-4">
+                                        <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                                        <h5 class="mb-3">Skilled Instructors</h5>
+                                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-footer">
-                                <a class="subjects-link btn btn-primary" href="course-detail?courseId=${S.id}">Learn More</a>
+                            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                                <div class="service-item text-center pt-3">
+                                    <div class="p-4">
+                                        <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                                        <h5 class="mb-3">Online Classes</h5>
+                                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                                <div class="service-item text-center pt-3">
+                                    <div class="p-4">
+                                        <i class="fa fa-3x fa-home text-primary mb-4"></i>
+                                        <h5 class="mb-3">Home Projects</h5>
+                                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                                <div class="service-item text-center pt-3">
+                                    <div class="p-4">
+                                        <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                                        <h5 class="mb-3">Book Library</h5>
+                                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>                
-                </c:forEach>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <section id="team" class="team-area section-padding">    
-                        <div class="container">
-                            <div class="section-title text-center">
-                                <h2>Our Created Team</h2>
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                            </div>				
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0" style="visibility: visible; animation-duration: 1s; animation-delay: 0.2s; animation-name: fadeInUp;">
-                                    <div class="our-team">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                        <div class="team-content">
-                                            <h3 class="title">Marina Mojo</h3>
-                                            <span class="post">Developer</span>							
-                                            <ul class="social">
-                                                <li><a class="fa fa-facebook" href="#"></a></li>
-                                                <li><a class="fa fa-twitter" href="#"></a></li>
-                                                <li><a class="fa fa-youtube" href="#"></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div><!--- END COL -->
-                                <div class="col-lg-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s" data-wow-offset="0" style="visibility: visible; animation-duration: 1s; animation-delay: 0.3s; animation-name: fadeInUp;">
-                                    <div class="our-team">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="">
-                                        <div class="team-content">
-                                            <h3 class="title">Ayoub Fennouni</h3>
-                                            <span class="post">Logo Expert</span>							
-                                            <ul class="social">
-                                                <li><a class="fa fa-facebook" href="#"></a></li>
-                                                <li><a class="fa fa-twitter" href="#"></a></li>
-                                                <li><a class="fa fa-youtube" href="#"></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div><!--- END COL -->
-                                <div class="col-lg-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s" data-wow-offset="0" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeInUp;">
-                                    <div class="our-team">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
-                                        <div class="team-content">
-                                            <h3 class="title">Mark Linomi</h3>
-                                            <span class="post">Marketer</span>							
-                                            <ul class="social">
-                                                <li><a class="fa fa-facebook" href="#"></a></li>
-                                                <li><a class="fa fa-twitter" href="#"></a></li>
-                                                <li><a class="fa fa-youtube" href="#"></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div><!--- END COL -->
-                                <div class="col-lg-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" data-wow-offset="0" style="visibility: visible; animation-duration: 1s; animation-delay: 0.5s; animation-name: fadeInUp;">
-                                    <div class="our-team">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="">
-                                        <div class="team-content">
-                                            <h3 class="title">Amira Yerden</h3>
-                                            <span class="post">UI/UX Designer</span>							
-                                            <ul class="social">
-                                                <li><a class="fa fa-facebook" href="#"></a></li>
-                                                <li><a class="fa fa-twitter" href="#"></a></li>
-                                                <li><a class="fa fa-youtube" href="#"></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div><!--- END COL -->
-                            </div><!--- END ROW -->
-                        </div><!--- END CONTAINER -->
-                    </section>
-
+                    </div>
                 </div>
+                <!-- Service End -->
+                <!-- About Start -->
+                <div class="container-xxl py-5">
+                    <div class="container">
+                        <div class="row g-5">
+                            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                                <div class="position-relative h-100">
+                                    <img class="img-fluid position-absolute w-100 h-100" src="img/about.jpg" alt="" style="object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                                <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
+                                <h1 class="mb-4">Welcome to eLEARNING</h1>
+                                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                                <div class="row gy-2 gx-4 mb-4">
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International Certificate</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International Certificate</p>
+                                    </div>
+                                </div>
+                                <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- About End -->
 
+                <!-- Courses Start -->
+                <div class="container-xxl py-5">
+                    <div class="container">
+                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                            <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
+                            <h1 class="mb-5">Popular Courses</h1>
+                        </div>
+                        <div class="row g-4 justify-content-center">
+                        <c:forEach items="${listCourses}" var="S" begin="0" end="2" step="1">
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="course-item bg-light">
+                                    <div class="position-relative overflow-hidden">
+                                        <img class="img-fluid" src="images/${S.image}" alt="">
+                                        <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
+                                            <a href="about.jsp" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
+                                            <a href="course-detail?courseId=${S.id}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                        </div>
+                                    </div>
+                                    <div class="text-center p-4 pb-0">
+                                        <h5 class="mb-4">${S.courseName}</h5>
+                                    </div>
+                                    <div class="d-flex border-top">
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>${S.account.fullname}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+
+                    </div>
+                </div>
             </div>
+            <!-- Courses End -->
+            <!-- Team Start -->
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
+                        <h1 class="mb-5">Expert Instructors</h1>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="team-item bg-light">
+                                <div class="overflow-hidden">
+                                    <img class="img-fluid" src="img/team-1.jpg" alt="">
+                                </div>
+                                <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                                    <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                                <div class="text-center p-4">
+                                    <h5 class="mb-0">Instructor Name</h5>
+                                    <small>Designation</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="team-item bg-light">
+                                <div class="overflow-hidden">
+                                    <img class="img-fluid" src="img/team-2.jpg" alt="">
+                                </div>
+                                <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                                    <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                                <div class="text-center p-4">
+                                    <h5 class="mb-0">Instructor Name</h5>
+                                    <small>Designation</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="team-item bg-light">
+                                <div class="overflow-hidden">
+                                    <img class="img-fluid" src="img/team-3.jpg" alt="">
+                                </div>
+                                <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                                    <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                                <div class="text-center p-4">
+                                    <h5 class="mb-0">Instructor Name</h5>
+                                    <small>Designation</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="team-item bg-light">
+                                <div class="overflow-hidden">
+                                    <img class="img-fluid" src="img/team-4.jpg" alt="">
+                                </div>
+                                <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                                    <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                                <div class="text-center p-4">
+                                    <h5 class="mb-0">Instructor Name</h5>
+                                    <small>Designation</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Team End -->
+            <!-- Testimonial Start -->
+            <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="container">
+                    <div class="text-center">
+                        <h6 class="section-title bg-white text-center text-primary px-3">Testimonial</h6>
+                        <h1 class="mb-5">Our Students Say!</h1>
+                    </div>
+                    <div class="owl-carousel testimonial-carousel position-relative">
+                        <div class="testimonial-item text-center">
+                            <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg" style="width: 80px; height: 80px;">
+                            <h5 class="mb-0">Client Name</h5>
+                            <p>Profession</p>
+                            <div class="testimonial-text bg-light text-center p-4">
+                                <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-item text-center">
+                            <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg" style="width: 80px; height: 80px;">
+                            <h5 class="mb-0">Client Name</h5>
+                            <p>Profession</p>
+                            <div class="testimonial-text bg-light text-center p-4">
+                                <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-item text-center">
+                            <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg" style="width: 80px; height: 80px;">
+                            <h5 class="mb-0">Client Name</h5>
+                            <p>Profession</p>
+                            <div class="testimonial-text bg-light text-center p-4">
+                                <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-item text-center">
+                            <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
+                            <h5 class="mb-0">Client Name</h5>
+                            <p>Profession</p>
+                            <div class="testimonial-text bg-light text-center p-4">
+                                <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial End -->
         </div>
     </body>
-
-
     <jsp:include page="components/footer.jsp"></jsp:include>
 </html>
