@@ -48,7 +48,7 @@
                             <form action="Signup" method="post">
                                 <div class="mb-4">
                                     <label for="username" class="form-label">Username/Email</label>
-                                    <input type="text" required="" name="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="username" />
+                                    <input type="email" required="" name="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="username" />
                                 </div>
                                 <div class="mb-4">
                                     <label for="password" class="form-label">Password</label>
