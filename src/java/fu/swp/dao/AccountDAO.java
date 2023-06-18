@@ -33,7 +33,7 @@ public class AccountDAO {
                     return Account.builder()
                             .id(rs.getInt("id"))
                             .username(rs.getString("username"))
-                            .password("*******")
+                            .password(rs.getString("password"))
                             .status(rs.getInt("status"))
                             .email(rs.getString("email"))
                             .phone(rs.getString("phone"))
@@ -72,7 +72,7 @@ public class AccountDAO {
                     return Account.builder()
                             .id(rs.getInt("id"))
                             .username(rs.getString("username"))
-                            .password("*******")
+                            .password(rs.getString("password"))
                             .status(rs.getInt("status"))
                             .email(rs.getString("email"))
                             .phone(rs.getString("phone"))
@@ -111,7 +111,7 @@ public class AccountDAO {
                     return Account.builder()
                             .id(rs.getInt("id"))
                             .username(rs.getString("username"))
-                            .password("*******")
+                            .password(rs.getString("password"))
                             .status(rs.getInt("status"))
                             .email(rs.getString("email"))
                             .phone(rs.getString("phone"))
@@ -148,7 +148,7 @@ public class AccountDAO {
                     return Account.builder()
                             .id(rs.getInt("id"))
                             .username(rs.getString("username"))
-                            .password("*******")
+                            .password(rs.getString("password"))
                             .status(rs.getInt("status"))
                             .email(rs.getString("email"))
                             .phone(rs.getString("phone"))
@@ -249,6 +249,35 @@ public class AccountDAO {
         return null;
     }
 
+    public Account changePassword(int accountId, String password) throws SQLException, Exception {
+        String query = "UPDATE Account"
+                + " SET password = ? "
+                + " WHERE id=?;";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setString(1, password);
+                ps.setInt(2, accountId);
+                if (ps.executeUpdate() > 0) {
+                    return getAccountById(accountId);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return null;
+    }
+
     public boolean updateAccountStatus(String email, int status) throws SQLException, Exception {
         String query = "UPDATE Account"
                 + " SET status = ?"
@@ -293,7 +322,7 @@ public class AccountDAO {
                     return Account.builder()
                             .id(rs.getInt("id"))
                             .username(rs.getString("username"))
-                            .password("*******")
+                            .password(rs.getString("password"))
                             .status(rs.getInt("status"))
                             .email(rs.getString("email"))
                             .phone(rs.getString("phone"))

@@ -33,7 +33,7 @@
                             <input class="form-control" type="text" name="email" value="${acc.email}" disabled="disabled"/>
                         </div>
                         <div class="col-sm-12">
-                            <a class="btn btn-danger animated mt-3" href="ChangePassword">Change password</a>
+                            <a class="btn btn-danger animated mt-3" href="change-password">Change password</a>
                         </div>
                         <div class="col-sm-12 mt-3">
                             <label for="fullname" class="font-weight-bold">Address</label>

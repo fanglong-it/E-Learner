@@ -45,7 +45,7 @@
                                 <form action="Login" method="post">
                                     <div class="mb-4">
                                         <label for="username" class="form-label">Username/Email</label>
-                                        <input type="email" name="user" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" id="username" />
+                                        <input type="text" name="user" required="" class="form-control" id="username" />
                                     </div>
                                     <div class="mb-4">
                                         <label for="password" class="form-label">Password</label>
@@ -72,6 +72,9 @@
                                 <div class="row">
                                 <c:if test="${requestScope.ERROR != null}">
                                     <p class="text-danger">${requestScope.ERROR}</p>
+                                </c:if>
+                                <c:if test="${requestScope.MSG != null}">
+                                    <p class="text-danger">${requestScope.MSG}</p>
                                 </c:if>
                             </div>
                         </div>

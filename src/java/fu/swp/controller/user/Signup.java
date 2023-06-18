@@ -7,9 +7,11 @@ package fu.swp.controller.user;
 
 import fu.swp.base.Base;
 import fu.swp.dao.AccountDAO;
+import fu.swp.dto.SignUpError;
 import fu.swp.model.Account;
 import fu.swp.model.Role;
 import fu.swp.utils.MailSender;
+import fu.swp.utils.Util;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -75,16 +77,30 @@ public class Signup extends HttpServlet {
         String re_pass = request.getParameter("rePassword");
         String fullname = request.getParameter("fullname");
         String phone = request.getParameter("phone");
+        SignUpError signUpError = new SignUpError();
         try {
             AccountDAO accountDAO = new AccountDAO();
+            boolean check = true;
             if (!pass.equals(re_pass)) {
                 msg = "Password not match!";
+                signUpError.setPasswordError("Pasword Not Match");
                 url = REGIS_PAGE;
-            } else {
+                check = false;
+            }
+            if (!Util.isValidEmail(email)) {
+                msg = "Email Not Valid";
+                signUpError.setEmailError("Email Not Valid");
+                check = false;
+            }
+            if (!Util.isValidPhoneNumber(phone)) {
+                signUpError.setPhoneError("Phone Is not valid");
+                check = false;
+            }
+            if (check) {
                 Account ac = accountDAO.getAccountByEmail(email);
                 if (ac == null) {
                     String subject = "Verify your account form E-Learner";
-                    
+
                     String link = Base.LINK_VERIFY + "?email=" + email + "&password=" + pass;
                     String message = "<!DOCTYPE html>\n"
                             + "<html lang=\"en\">\n"
@@ -107,7 +123,7 @@ public class Signup extends HttpServlet {
                     url = LOGIN_PAGE;
                 }
             }
-            request.setAttribute("ERROR", msg);
+            request.setAttribute("SignUpValidator", signUpError);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
