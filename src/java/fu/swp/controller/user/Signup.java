@@ -78,7 +78,6 @@ public class Signup extends HttpServlet {
         try {
             AccountDAO accountDAO = new AccountDAO();
             if (!pass.equals(re_pass)) {
-//                response.sendRedirect(url);
                 msg = "Password not match!";
                 url = REGIS_PAGE;
             } else {
@@ -109,7 +108,6 @@ public class Signup extends HttpServlet {
                 }
             }
             request.setAttribute("ERROR", msg);
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
