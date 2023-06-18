@@ -48,23 +48,23 @@
                             <form action="Signup" method="post">
                                 <div class="mb-4">
                                     <label for="username" class="form-label">Username/Email</label>
-                                    <input type="text" name="email" class="form-control" id="username" />
+                                    <input type="text" required="" name="email" class="form-control" id="username" />
                                 </div>
                                 <div class="mb-4">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" id="password" />
+                                    <input type="password" required="" name="password" class="form-control" id="password" />
                                 </div>
                                 <div class="mb-4">
                                     <label for="password" class="form-label">Re-Password</label>
-                                    <input type="password" name="rePassword" class="form-control" id="password" />
+                                    <input type="password" required="" name="rePassword" class="form-control" id="password" />
                                 </div>
                                 <div class="mb-4">
                                     <label for="password" class="form-label">FullName</label>
-                                    <input type="text" name="fullname" class="form-control" id="password" />
+                                    <input type="text" required="" name="fullname" class="form-control" id="password" />
                                 </div>
                                 <div class="mb-4">
                                     <label for="phone" class="form-label">Phone</label>
-                                    <input type="tel" name="phone" class="form-control" id="phone" />
+                                    <input type="tel" required="" name="phone" class="form-control" id="phone" />
                                 </div>
                                 <div class="d-grid">
                                     <button type="submit" class="btn text-light main-bg"> Sign Up</button>
