@@ -67,16 +67,16 @@
                                             </a>
                                         </span>
                                     </div>
+                                    <div class="row">
+                                    <c:if test="${requestScope.ERROR != null}">
+                                        <p class="text-danger">${requestScope.ERROR}</p>
+                                    </c:if>
+                                    <c:if test="${requestScope.MSG != null}">
+                                        <p class="text-danger">${requestScope.MSG}</p>
+                                    </c:if>
+                                </div>
+                            </form>
 
-                                </form>
-                                <div class="row">
-                                <c:if test="${requestScope.ERROR != null}">
-                                    <p class="text-danger">${requestScope.ERROR}</p>
-                                </c:if>
-                                <c:if test="${requestScope.MSG != null}">
-                                    <p class="text-danger">${requestScope.MSG}</p>
-                                </c:if>
-                            </div>
                         </div>
                     </div>
                 </div>

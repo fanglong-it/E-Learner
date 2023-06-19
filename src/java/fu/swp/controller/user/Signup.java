@@ -70,7 +70,7 @@ public class Signup extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //            String user = request.getParameter("username");
-        String url = LOGIN_PAGE;
+        String url = REGIS_PAGE;
         String msg = "";
         String email = request.getParameter("email");
         String pass = request.getParameter("password");
@@ -81,12 +81,23 @@ public class Signup extends HttpServlet {
         try {
             AccountDAO accountDAO = new AccountDAO();
             boolean check = true;
-            if (!pass.equals(re_pass)) {
-                msg = "Password not match!";
-                signUpError.setPasswordError("Pasword Not Match");
-                url = REGIS_PAGE;
+
+            String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$";
+            if (!pass.matches(passwordRegex)) {
+                signUpError.setPasswordError("Your Password > 8, at least 1 Special, 1 character, 1 Capitalize, 1 number");
                 check = false;
+            } else {
+                signUpError.setPasswordError("");
+                if (!pass.equals(re_pass)) {
+                    msg = "Password not match!";
+                    signUpError.setPasswordError("Pasword Not Match");
+                    check = false;
+                } else {
+                    signUpError.setPasswordError("");
+                }
+
             }
+
             if (!Util.isValidEmail(email)) {
                 msg = "Email Not Valid";
                 signUpError.setEmailError("Email Not Valid");
@@ -96,6 +107,7 @@ public class Signup extends HttpServlet {
                 signUpError.setPhoneError("Phone Is not valid");
                 check = false;
             }
+
             if (check) {
                 Account ac = accountDAO.getAccountByEmail(email);
                 if (ac == null) {
@@ -116,10 +128,11 @@ public class Signup extends HttpServlet {
                     if (account != null) {
                         MailSender.send(subject, message, email);
                         msg = "Please Check your mail Box!";
-                        url = LOGIN_PAGE;
+                        url = REGIS_PAGE;
                     }
                 } else {
                     msg = "Your Account already Exist!";
+                    request.setAttribute("MSG", msg);
                     url = LOGIN_PAGE;
                 }
             }
