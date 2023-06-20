@@ -90,7 +90,7 @@ public class SendRequestJoinClass extends HttpServlet {
                         List<Account> teaList = accountDAO.getListAccountByClassId(Integer.parseInt(classId));
                       
                         for (Account teacher : teaList) {
-                            Notification notification = new Notification(0, "The student " + account.getFullname() + " has join the class " + classId, teacher, new java.sql.Date(System.currentTimeMillis()));
+                            Notification notification = new Notification(0, "The student " + account.getFullname() + " has send request to join class " + classId, teacher, new java.sql.Date(System.currentTimeMillis()));
                             notificationDAO.saveNotification(notification);
                         }
                         if (registrationClass != null) {

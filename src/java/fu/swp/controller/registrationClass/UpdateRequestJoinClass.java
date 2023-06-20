@@ -98,15 +98,15 @@ public class UpdateRequestJoinClass extends HttpServlet {
                     for (GroupChat groupChat : groupChats) {
                         Member member = new Member(0, memberAcc, groupChat);
                         memberDAO.saveMemberChat(member);
-                        messageDAO.sendMessage(new Message(0, memberAcc.getEmail() + " Has Join!", "", memberAcc, groupChat.getId(), null));
-                        Notification notification = new Notification(0, "You have been approved by teacher " + account.getUsername(), memberAcc, new Date(System.currentTimeMillis()));
+                        messageDAO.sendMessage(new Message(0, memberAcc.getEmail() + " Has Join! this conversation ", "", memberAcc, groupChat.getId(), null));
+                        Notification notification = new Notification(0, "You have been approved to class " + registrationClass.getClassId() + " by " + account.getUsername(), memberAcc, new Date(System.currentTimeMillis()));
                         notificationDAO.saveNotification(notification);
                     }
                 } else if (registrationClass.getRequestStatus().equals("Pending")) {
-                    Notification notification = new Notification(0, "You have not available to learn from the class " + registrationClass.getClassId() + "by teacher " + account.getUsername() + "<br> reason: " + reason, memberAcc, new Date(System.currentTimeMillis()));
+                    Notification notification = new Notification(0, "You have been remove from the class " + registrationClass.getClassId() + " by " + account.getUsername(), memberAcc, new Date(System.currentTimeMillis()));
                     notificationDAO.saveNotification(notification);
                 } else {
-                    Notification notification = new Notification(0, "You have have been reject by teacher " + account.getUsername() + "<br> reason: " + reason , memberAcc, new Date(System.currentTimeMillis()));
+                    Notification notification = new Notification(0, "You have have been Reject by " + account.getUsername() + " from the class " + registrationClass.getClassId() + "<br> Reason: " + reason, memberAcc, new Date(System.currentTimeMillis()));
                     notificationDAO.saveNotification(notification);
                 }
                 url = "view-request?classId=" + registrationClass.getClassId();
