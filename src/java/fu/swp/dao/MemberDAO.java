@@ -81,4 +81,31 @@ public class MemberDAO {
         }
         return null;
     }
+
+    public int countTotalMemberByGroupChatId(int groupChatId) throws SQLException, Exception {
+        String query = "select COUNT(m.userId) as total_member from [Member] m where m.groupChatId = ?";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, groupChatId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt("total_member");
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return 0;
+    }
 }

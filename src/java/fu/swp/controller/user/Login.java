@@ -22,6 +22,7 @@ public class Login extends HttpServlet {
 
     private static final String LOGIN_PAGE = "Login.jsp";
     private static final String HOME_PAGE = "HomeController";
+    private static final String ADMIN_PAGE = "AdminController?";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -64,7 +65,13 @@ public class Login extends HttpServlet {
                     if (account.getRole().getRole_name().equalsIgnoreCase("ADMIN")) {
 //                        response.sendRedirect("adminDashboard.jsp");
                     } else {
-                        url = HOME_PAGE;
+                        request.setAttribute("MSG", "Using cookie !");
+                        if (account.getRole().getRole_name().equalsIgnoreCase("ADMIN")) {
+                            url = ADMIN_PAGE;
+                        } else {
+                            url = HOME_PAGE;
+//                    request.getRequestDispatcher("HomeController").forward(request, response);
+                        }
 //                        request.getRequestDispatcher("HomeController").forward(request, response);
                     }
                 }
@@ -109,15 +116,15 @@ public class Login extends HttpServlet {
                 }
                 request.getSession().setAttribute("account", account);
                 if (account.getRole().getRole_name().equalsIgnoreCase("ADMIN")) {
-                    url = HOME_PAGE;
+                    url = ADMIN_PAGE;
                 } else {
                     url = HOME_PAGE;
 //                    request.getRequestDispatcher("HomeController").forward(request, response);
                 }
-
+                request.setAttribute("MSG", "Login Success!");
                 //không remember
             } else {//Không hợp lệ -> trả về lỗi
-                request.setAttribute("WARNING", "Username Or Email Invalid!");
+                request.setAttribute("MSG", "Username Or Email Invalid!");
                 url = LOGIN_PAGE;
             }
         } catch (Exception e) {

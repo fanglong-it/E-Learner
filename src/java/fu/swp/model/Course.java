@@ -6,6 +6,7 @@ package fu.swp.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,4 +31,5 @@ public class Course implements Serializable {
     private String description;
     private Date createDate;
     private Account account;
+    private List<Account> teachers;
 }

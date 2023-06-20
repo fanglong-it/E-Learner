@@ -21,13 +21,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RegistrationClass implements Serializable{
+public class RegistrationClass implements Serializable {
+
     private int id;
     private Date requestDate;
     private String requestStatus;
     private int classId;
     private int accountId;
     private Account account;
+    private String reason;
 }
-
-

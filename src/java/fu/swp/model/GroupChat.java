@@ -4,6 +4,7 @@
  */
 package fu.swp.model;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,4 +26,6 @@ public class GroupChat {
     private String groupChatName;
     private int isPrivate;
     private Class clas;
+    private int member;
+    private List<Account> accounts;
 }

@@ -11,9 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import fu.swp.context.DBContext;
 import fu.swp.model.Role;
+import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AccountDAO {
+public class AccountDAO implements Serializable {
 
     Connection con = null;
     PreparedStatement ps = null;
@@ -346,6 +349,96 @@ public class AccountDAO {
 
         }
         return null;
+    }
+//    
+//    select a.id, a.username, a.password, a.status, a.email, a.status, a.phone, a.fullname, a.address 
+//from RegistrationClass rc left join Account a on rc.accountId = a.id
+//where rc.classId = 1
+
+    public List<Account> getListAccountByClassId(int classId) throws SQLException, Exception {
+        ArrayList<Account> accounts = new ArrayList<>();
+        String query = "select a.id, a.username, a.password, a.status, a.email, a.status, a.phone, a.fullname, a.address, a.avatar ,r.roleId, r.roleName\n"
+                + "from Class c\n"
+                + "inner join Account a on c.userId = a.id\n"
+                + "left join Role r on a.roleId = r.roleId\n"
+                + "where c.id = ?";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, classId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    accounts.add(Account.builder()
+                            .id(rs.getInt("id"))
+                            .username(rs.getString("username"))
+                            .password(rs.getString("password"))
+                            .status(rs.getInt("status"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .fullname(rs.getString("fullname"))
+                            .address(rs.getString("address"))
+                            .avatar(rs.getString("avatar"))
+                            .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
+                            .build());
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return accounts;
+    }
+
+    public List<Account> getListAccountByGroupChatId(int groupChatId) throws SQLException, Exception {
+        ArrayList<Account> accounts = new ArrayList<>();
+        String query = "select a.id, a.username, a.password, a.status, a.email, a.status, a.phone, a.fullname, a.address, a.avatar, r.roleId, r.roleName\n"
+                + "from Member m \n"
+                + "left join Account a on m.userId = a.id\n"
+                + "left join Role r on a.roleId = r.roleId\n"
+                + "where m.groupChatId = ?";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, groupChatId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    accounts.add(Account.builder()
+                            .id(rs.getInt("id"))
+                            .username(rs.getString("username"))
+                            .password(rs.getString("password"))
+                            .status(rs.getInt("status"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .fullname(rs.getString("fullname"))
+                            .address(rs.getString("address"))
+                            .avatar(rs.getString("avatar"))
+                            .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
+                            .build());
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return accounts;
     }
 
 //    UPDATE [e-learner].dbo.Account SET username='', password='', status=0, email='', phone='', fullname='', address='', avatar='', roleId=0 WHERE id=0;

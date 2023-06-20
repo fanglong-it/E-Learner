@@ -6,7 +6,10 @@ package fu.swp.controller;
  * and open the template in the editor.
  */
 import fu.swp.dao.CourseDAO;
+import fu.swp.dao.NotificationDAO;
+import fu.swp.model.Account;
 import fu.swp.model.Course;
+import fu.swp.model.Notification;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -52,9 +56,15 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         try {
             CourseDAO courseDAO = new CourseDAO();
+            NotificationDAO notificationDAO = new NotificationDAO();
             List<Course> listCourse = courseDAO.getAllCourses();
             request.setAttribute("listCourses", listCourse);
-
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("account");
+            if(account != null){
+                List<Notification> notifications = notificationDAO.getListNotificationByAccount(account.getId());
+                session.setAttribute("notifications", notifications);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

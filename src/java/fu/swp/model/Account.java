@@ -5,6 +5,7 @@
  */
 package fu.swp.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +21,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account {
+public class Account implements Serializable {
+
     private int id;
     private String username;
     private String password;

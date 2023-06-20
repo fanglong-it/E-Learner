@@ -24,11 +24,11 @@
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="col-sm-12">
-                                                <label for="courseName" style="float: left" class="font-weight-bold">Input Course Name</label>
+                                                <label for="courseName" style="float: left" class="font-weight-bold">Search course name</label>
                                                 <input id="courseName" class="form-control" type="text" name="courseName" value="${param.courseName}" />
                                         </div>
                                         <div class="col-sm-12">
-                                            <label for="courseName" style="float: left" class="font-weight-bold">Input Teacher</label>
+                                            <label for="courseName" style="float: left" class="font-weight-bold">Search teacher</label>
                                             <input id="courseName" class="form-control" type="text" name="teacherName" value="" />
                                         </div>
 

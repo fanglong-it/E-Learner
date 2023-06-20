@@ -160,14 +160,15 @@ public class RegistrationDAO {
         return null;
     }
 
-    public RegistrationClass updateRequestJoinClass(int regisId, String status) throws SQLException, Exception {
-        String query = "Update RegistrationClass set requestStatus = ? where id = ?";
+    public RegistrationClass updateRequestJoinClass(int regisId, String status, String reason) throws SQLException, Exception {
+        String query = "Update RegistrationClass set requestStatus = ?, reason = ? where id = ?";
         try {
             con = DBContext.makeConnection();
             if (con != null) {
                 ps = con.prepareStatement(query);
                 ps.setString(1, status);
-                ps.setInt(2, regisId);
+                ps.setString(2, reason);
+                ps.setInt(3, regisId);
                 if (ps.executeUpdate() > 0) {
                     return getRegistrationClassByRegisId(regisId);
                 }
@@ -266,6 +267,43 @@ public class RegistrationDAO {
                                     .classId(rs.getInt("classId"))
                                     .accountId(rs.getInt("accountId"))
                                     .account(accountDAO.getAccountById(rs.getInt("accountId")))
+                                    .build()
+                    );
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return registrations;
+    }
+
+    public List<RegistrationClass> getRegisterByClassStudentId(int studentId) throws SQLException, Exception {
+        String query = "SELECT * from RegistrationClass rc WHERE rc.accountId = ?;";
+        ArrayList<RegistrationClass> registrations = new ArrayList<>();
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, studentId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    registrations.add(
+                            RegistrationClass.builder()
+                                    .id(rs.getInt("id"))
+                                    .requestDate(rs.getDate("requestDate"))
+                                    .requestStatus(rs.getString("requestStatus"))
+                                    .classId(rs.getInt("classId"))
+                                    .accountId(rs.getInt("accountId"))
+                                    .account(accountDAO.getAccountById(rs.getInt("accountId")))
+                                    .reason(rs.getString("reason"))
                                     .build()
                     );
                 }

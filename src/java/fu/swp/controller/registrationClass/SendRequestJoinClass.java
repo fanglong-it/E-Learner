@@ -4,8 +4,11 @@
  */
 package fu.swp.controller.registrationClass;
 
+import fu.swp.dao.AccountDAO;
+import fu.swp.dao.NotificationDAO;
 import fu.swp.dao.RegistrationDAO;
 import fu.swp.model.Account;
+import fu.swp.model.Notification;
 import fu.swp.model.RegistrationClass;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,6 +73,8 @@ public class SendRequestJoinClass extends HttpServlet {
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("account");
             RegistrationDAO registrationDAO = new RegistrationDAO();
+            NotificationDAO notificationDAO = new NotificationDAO();
+            AccountDAO accountDAO = new AccountDAO();
             if (account != null) {
                 String classId = request.getParameter("selectedClassId");
                 String courseId = request.getParameter("courseId");
@@ -78,10 +83,16 @@ public class SendRequestJoinClass extends HttpServlet {
                     request.setAttribute("error", "You can't Send Request");
                 } else {
                     long currentDate = System.currentTimeMillis();
-                    if (!registrationDAO.isSendRegistration(Integer.parseInt(classId), Integer.parseInt(courseId))) {
+                    if (!registrationDAO.isSendRegistration(account.getId(), Integer.parseInt(classId))) {
                         RegistrationClass registrationClass
                                 = registrationDAO.saveRegistrationClass(new RegistrationClass(0, new Date(currentDate), "Pending",
-                                        Integer.parseInt(classId), account.getId(), account));
+                                        Integer.parseInt(classId), account.getId(), account, ""));
+                        List<Account> teaList = accountDAO.getListAccountByClassId(Integer.parseInt(classId));
+                      
+                        for (Account teacher : teaList) {
+                            Notification notification = new Notification(0, "The student " + account.getFullname() + " has join the class " + classId, teacher, new java.sql.Date(System.currentTimeMillis()));
+                            notificationDAO.saveNotification(notification);
+                        }
                         if (registrationClass != null) {
                             msg = "Send Request Success view Profile History";
                         }
@@ -89,7 +100,7 @@ public class SendRequestJoinClass extends HttpServlet {
                         msg = "Your already Send to this class, View History!";
                     }
                     url = "course-detail?courseId=" + courseId;
-                    request.setAttribute("error", msg);
+                    request.setAttribute("MSG", msg);
                 }
 
             } else {

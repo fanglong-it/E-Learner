@@ -71,8 +71,16 @@
                                     <c:if test="${requestScope.ERROR != null}">
                                         <p class="text-danger">${requestScope.ERROR}</p>
                                     </c:if>
-                                    <c:if test="${requestScope.MSG != null}">
-                                        <p class="text-danger">${requestScope.MSG}</p>
+                                        <p id="message" class="text-danger" style="display: none">${requestScope.MSG}</p>
+                                    <c:if test="${requestScope.MSG != null && !empty requestScope.MSG}">
+                                        <script>
+                                            window.onload = function () {
+                                                var message = document.getElementById("message").textContent;
+                                                if (message.trim() !== '') {
+                                                    alert(message);
+                                                }
+                                            };
+                                        </script>
                                     </c:if>
                                 </div>
                             </form>

@@ -4,7 +4,9 @@
  */
 package fu.swp.controller.groupchat;
 
+import fu.swp.dao.AccountDAO;
 import fu.swp.dao.GroupChatDAO;
+import fu.swp.dao.MemberDAO;
 import fu.swp.dao.MessageDAO;
 import fu.swp.model.Account;
 import fu.swp.model.GroupChat;
@@ -76,6 +78,12 @@ public class ContentGroupChat extends HttpServlet {
             String rows = request.getParameter("rows");
             if (account != null) {
                 List<GroupChat> groupChats = groupChatDAO.getAllGroupChatByUserId(account.getId());
+                MemberDAO memberDAO = new MemberDAO();
+                AccountDAO accountDAO = new AccountDAO();
+                for (GroupChat groupChat : groupChats) {
+                    groupChat.setMember(memberDAO.countTotalMemberByGroupChatId(groupChat.getId()));
+                    groupChat.setAccounts(accountDAO.getListAccountByGroupChatId(groupChat.getId()));
+                }
                 request.setAttribute("groupChats", groupChats);
                 //Default get the chat content;
 

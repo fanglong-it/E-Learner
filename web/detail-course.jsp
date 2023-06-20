@@ -60,18 +60,20 @@
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="send-request" method="get">
+                                                <form style="width: 100%"  action="send-request" method="get">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Select The Class</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <input type="hidden" value="${requestScope.course.id}" name="courseId">
-                                                        <select id="class" name="selectedClassId">
-                                                            <c:forEach var="c" items="${requestScope.classes}">
-                                                                <option value="${c.id}">${c.id}-${c.className}-${c.account.email}</option>
-                                                            </c:forEach>
-                                                        </select>
+                                                        <div class="form-group">
+                                                            <input type="hidden" value="${requestScope.course.id}" name="courseId">
+                                                            <select id="class" class="form-select" name="selectedClassId">
+                                                                <c:forEach var="c" items="${requestScope.classes}">
+                                                                    <option value="${c.id}">${c.account.fullname}-${c.className}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>                                                  
@@ -129,7 +131,17 @@
 
                 </div>  
             </div>
-
+            <p id="message" class="text-danger" style="display: none">${requestScope.MSG}</p>
+            <c:if test="${requestScope.MSG != null && !empty requestScope.MSG}">
+                <script>
+                    window.onload = function () {
+                        var message = document.getElementById("message").textContent;
+                        if (message.trim() !== '') {
+                            alert(message);
+                        }
+                    };
+                </script>
+            </c:if>
         </div>
 
     </div>

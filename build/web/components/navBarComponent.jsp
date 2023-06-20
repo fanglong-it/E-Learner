@@ -4,7 +4,7 @@
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
     <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">  
-        <h2 class="m-0 text-primary"><img src="https://i.chungta.vn/2017/12/22/LogoFPT-2017-copy-3042-1513928399.jpg" width="50px" height="50px" alt="alt"/>eLEARNING</h2>
+        <h2 class="m-0 text-primary"><img src="https://i.chungta.vn/2017/12/22/LogoFPT-2017-copy-3042-1513928399.jpg" width="50px" height="50px" alt="alt"/>Happy Learning</h2>
     </a>
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
@@ -25,6 +25,23 @@
                             </div>
                         </div>
                     </c:if>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-bell"></i></a>
+                        <div class="dropdown-menu fade-down m-0">
+                            <c:choose>
+                                <c:when test="${sessionScope.notifications.size() > 0}">
+                                    <c:forEach var="noti" items="${sessionScope.notifications}">
+                                        <a href="#" class="dropdown-item mr-5">${noti.content}</a>
+                                    </c:forEach> 
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="#" class="dropdown-item">Not have any Notification !</a>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Your Class</a>
                         <div class="dropdown-menu fade-down m-0">
@@ -37,41 +54,33 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu fade-down m-0">
-                            <a href="team.html" class="dropdown-item">Our Team</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
+
                 </c:otherwise>
             </c:choose>
 
-        </div>
-        <div class="d-flex" style="margin-left: 10px">
-            <c:choose>
-                <c:when test="${sessionScope.account != null}">
-                    <div class="dropdown">
-                        <button class="btn btn-outline-light dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            ${sessionScope.account.username}
-                            <img width="50px" height="50px" src="images/${sessionScope.account.avatar}" alt="alt"/>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="profile">Information</a></li>
-                            <li><a class="dropdown-item" href="#">History</a></li>
-                            <li><a class="dropdown-item bg-danger" href="Logout">Logout</a></li>
-                        </ul>
-                    </div>
 
-                </c:when>
-                <c:otherwise>
-                    <a class="btn btn-primary py-4 px-lg-5 d-none d-lg-block" href="Login">Join Now</a>
-                </c:otherwise>       
-            </c:choose>  
+            <div class="d-flex" style="margin-left: 10px">
+                <c:choose>
+                    <c:when test="${sessionScope.account != null}">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                ${sessionScope.account.username}
+                                <img width="50px" height="50px" src="images/${sessionScope.account.avatar}" alt="alt"/>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="profile">Information</a></li>
+                                <li><a class="dropdown-item" href="request-history">History</a></li>
+                                <li><a class="dropdown-item bg-danger" href="Logout">Logout</a></li>
+                            </ul>
+                        </div>
+
+                    </c:when>
+                    <c:otherwise>
+                        <a class="btn btn-primary py-4 px-lg-5 d-none d-lg-block" href="Login">Join Now</a>
+                    </c:otherwise>       
+                </c:choose>  
+            </div>
         </div>
-    </div>
 </nav>
 <!-- Navbar End -->
 

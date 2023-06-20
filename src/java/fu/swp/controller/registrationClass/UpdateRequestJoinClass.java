@@ -8,14 +8,17 @@ import fu.swp.dao.AccountDAO;
 import fu.swp.dao.GroupChatDAO;
 import fu.swp.dao.MemberDAO;
 import fu.swp.dao.MessageDAO;
+import fu.swp.dao.NotificationDAO;
 import fu.swp.dao.RegistrationDAO;
 import fu.swp.model.Account;
 import fu.swp.model.GroupChat;
 import fu.swp.model.Member;
 import fu.swp.model.Message;
+import fu.swp.model.Notification;
 import fu.swp.model.RegistrationClass;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -79,19 +82,32 @@ public class UpdateRequestJoinClass extends HttpServlet {
 
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("account");
+            NotificationDAO notificationDAO = new NotificationDAO();
             if (account != null) {
                 String regisId = request.getParameter("regisId");
                 String status = request.getParameter("regisStatus");
+                String reason = "";
+                if (status.equalsIgnoreCase("denied")) {
+                    reason = request.getParameter("reason");
+                }
                 RegistrationDAO registrationDAO = new RegistrationDAO();
-                RegistrationClass registrationClass = registrationDAO.updateRequestJoinClass(Integer.parseInt(regisId), status);
+                RegistrationClass registrationClass = registrationDAO.updateRequestJoinClass(Integer.parseInt(regisId), status, reason);
+                Account memberAcc = accountDAO.getAccountById(registrationClass.getAccountId());
                 if (registrationClass.getRequestStatus().equals("Approved")) {
                     List<GroupChat> groupChats = groupChatDAO.getAllGroupChatByClassId(registrationClass.getClassId());
-                    Account memberAcc = accountDAO.getAccountById(registrationClass.getAccountId());
                     for (GroupChat groupChat : groupChats) {
                         Member member = new Member(0, memberAcc, groupChat);
                         memberDAO.saveMemberChat(member);
                         messageDAO.sendMessage(new Message(0, memberAcc.getEmail() + " Has Join!", "", memberAcc, groupChat.getId(), null));
+                        Notification notification = new Notification(0, "You have been approved by teacher " + account.getUsername(), memberAcc, new Date(System.currentTimeMillis()));
+                        notificationDAO.saveNotification(notification);
                     }
+                } else if (registrationClass.getRequestStatus().equals("Pending")) {
+                    Notification notification = new Notification(0, "You have not available to learn from the class " + registrationClass.getClassId() + "by teacher " + account.getUsername() + "<br> reason: " + reason, memberAcc, new Date(System.currentTimeMillis()));
+                    notificationDAO.saveNotification(notification);
+                } else {
+                    Notification notification = new Notification(0, "You have have been reject by teacher " + account.getUsername() + "<br> reason: " + reason , memberAcc, new Date(System.currentTimeMillis()));
+                    notificationDAO.saveNotification(notification);
                 }
                 url = "view-request?classId=" + registrationClass.getClassId();
             } else {

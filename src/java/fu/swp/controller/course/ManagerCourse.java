@@ -4,6 +4,7 @@
  */
 package fu.swp.controller.course;
 
+import fu.swp.base.Base;
 import fu.swp.dao.CourseDAO;
 import fu.swp.model.Account;
 import fu.swp.model.Course;
@@ -70,6 +71,10 @@ public class ManagerCourse extends HttpServlet {
             if (account != null) {
                 CourseDAO courseDAO = new CourseDAO();
                 List<Course> courses = courseDAO.getAllCoursesByTeacherId(account.getId());
+                if (account.getRole().getRole_name().equals(Base.ROLE_ADMIN)) {
+                    courses = courseDAO.getAllCourses();
+                    url = "manager-course-admin.jsp";
+                }
                 request.setAttribute("courses", courses);
             } else {
                 url = "Login.jsp";

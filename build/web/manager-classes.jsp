@@ -24,11 +24,13 @@
                                     <th scope="col">#</th>
                                     <th scope="col">className</th>
                                     <th scope="col">maxStudent</th>
+                                    <th scope="col">Image</th>
                                     <th scope="col">User</th>
                                     <th scope="col">dateCreate</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Course</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

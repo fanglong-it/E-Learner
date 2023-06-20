@@ -48,6 +48,34 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <a class="btn btn-success" href="update-request?regisId=${c.id}&regisStatus=Approved">Approve</a>
+                                                <!-- Small modal -->
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal${counter.count}">Reject</button>
+                                                <div class="modal fade" id="exampleModal${counter.count}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h3>Denied</h3>
+                                                            </div>
+                                                            <form action="update-request" method="get">
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <input type="text" readonly="" name="regisId" value="${c.id}" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="text" readonly="" name="regisStatus" value="Denied" class="form-control">
+                                                                    </div><!-- comment -->
+                                                                    <div class="form-group">
+                                                                        <label>Reason</label>
+                                                                        <textarea id="id" class="form-control" name="reason" rows="5" cols="10"></textarea>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
