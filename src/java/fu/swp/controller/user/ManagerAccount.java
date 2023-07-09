@@ -2,14 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package fu.swp.controller.classes;
+package fu.swp.controller.user;
 
-import fu.swp.base.Base;
 import fu.swp.dao.AccountDAO;
-import fu.swp.dao.ClassDAO;
-import fu.swp.dao.CourseDAO;
 import fu.swp.model.Account;
-import fu.swp.model.Course;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -18,14 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DW
  */
-@WebServlet(name = "ManagerClass", urlPatterns = {"/manager-class"})
-public class ManagerClass extends HttpServlet {
+@WebServlet(name = "ManagerAccount", urlPatterns = {"/manager-account"})
+public class ManagerAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +39,10 @@ public class ManagerClass extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerClass</title>");
+            out.println("<title>Servlet ManagerAccount</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManagerClass at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ManagerAccount at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,28 +60,11 @@ public class ManagerClass extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "manager-classes.jsp";
+        String url = "manager-account-admin.jsp";
         try {
-            HttpSession session = request.getSession();
-            Account account = (Account) session.getAttribute("account");
-            if (account != null) {
-                
-                
-                ClassDAO classDAO = new ClassDAO();
-                List<fu.swp.model.Class> classes = classDAO.getClassByTeacherId(account.getId());
-                request.setAttribute("classes", classes);
-                if(account.getRole().getRole_name().equals(Base.ROLE_ADMIN)){
-                    AccountDAO accountDAO = new AccountDAO();
-                    CourseDAO courseDAO = new CourseDAO();
-                    String courseId = request.getParameter("courseId") == null ? "" : request.getParameter("courseId");
-                    request.setAttribute("classes", classDAO.getClassByCourseId(Integer.parseInt(courseId)));
-                    request.setAttribute("accounts", accountDAO.getListAccountsTeacher());
-                    request.setAttribute("course", courseDAO.getCourseById(Integer.parseInt(courseId)));
-                    url = "manager-classes-admin.jsp";
-                }
-            } else {
-                url = "Login.jsp";
-            }
+            AccountDAO accountDAO = new AccountDAO();
+            List<Account> accounts = accountDAO.getListAccounts();
+            request.setAttribute("accounts", accounts);            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

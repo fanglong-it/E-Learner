@@ -35,8 +35,11 @@
                         <div class="card-body">
                             <h3 class="">Teacher of this Course</h3>
                             <div class="row">
-                                <div class="col-sm-8"><h3>${requestScope.course.account.username}</h3></div>
-                                <div class="col-sm-4"><img width="50px" height="50px" src="images/${requestScope.course.account.avatar}" alt="..."/></div>
+                                <div class="col-sm-6"><h3>${requestScope.course.account.username}</h3></div>
+                                <div class="col-sm-6">
+                                    <img width="50px" height="50px" src="images/${requestScope.course.account.avatar}" alt="..."/>
+                                    <a class="btn btn-link" href="detail-teacher?accountId=${requestScope.course.account.id}">View Detail Teacher</a>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">

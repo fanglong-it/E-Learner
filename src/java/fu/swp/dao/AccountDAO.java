@@ -397,6 +397,83 @@ public class AccountDAO implements Serializable {
         }
         return accounts;
     }
+    
+    
+    public List<Account> getListAccounts() throws SQLException, Exception {
+        ArrayList<Account> accounts = new ArrayList<>();
+        String query = "SELECT * From Account a left outer join [Role] r on a.roleId  = r.roleId ";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    accounts.add(Account.builder()
+                            .id(rs.getInt("id"))
+                            .username(rs.getString("username"))
+                            .password(rs.getString("password"))
+                            .status(rs.getInt("status"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .fullname(rs.getString("fullname"))
+                            .address(rs.getString("address"))
+                            .avatar(rs.getString("avatar"))
+                            .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
+                            .build());
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return accounts;
+    }
+    public List<Account> getListAccountsTeacher() throws SQLException, Exception {
+        ArrayList<Account> accounts = new ArrayList<>();
+        String query = "SELECT * From Account a left outer join [Role] r on a.roleId  = r.roleId "
+                + "WHERE a.roleId = 3";
+        try {
+            con = DBContext.makeConnection();
+            if (con != null) {
+                ps = con.prepareStatement(query);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    accounts.add(Account.builder()
+                            .id(rs.getInt("id"))
+                            .username(rs.getString("username"))
+                            .password(rs.getString("password"))
+                            .status(rs.getInt("status"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .fullname(rs.getString("fullname"))
+                            .address(rs.getString("address"))
+                            .avatar(rs.getString("avatar"))
+                            .role(new Role(rs.getInt("roleId"), rs.getString("roleName")))
+                            .build());
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return accounts;
+    }
 
     public List<Account> getListAccountByGroupChatId(int groupChatId) throws SQLException, Exception {
         ArrayList<Account> accounts = new ArrayList<>();

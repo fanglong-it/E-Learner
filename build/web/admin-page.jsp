@@ -19,7 +19,7 @@
     <%@include file="components/admin/header.jsp" %>
     <body>
         <jsp:include page="components/admin/navbar.jsp"></jsp:include>
-            <div class="container-xxl position-relative bg-white d-flex p-0">
+            <div class="position-relative bg-white d-flex p-0">
             <jsp:include page="components/admin/slidebar.jsp"></jsp:include>
                 <!-- Content Start -->
                 <div class="content">
